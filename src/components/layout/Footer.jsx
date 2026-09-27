@@ -42,7 +42,17 @@ export default function Footer() {
         <div className="footer-lead-row">
           <div className="footer-brand-block">
             <div className="brand-logo">
-              <span className="logo-accent">P.</span>
+              <div className="brand-logo-badge">
+                <img
+                  src="/logo.webp"
+                  alt="Pawan Edits Logo"
+                  className="footer-brand-logo-img"
+                  width="28"
+                  height="28"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
               <span className="logo-name">PAWAN EDITS</span>
             </div>
             <p className="brand-tagline">
@@ -170,7 +180,6 @@ export default function Footer() {
 
         {/* Row 4: Developer Credit (Vinay Shrihari -> mailto) & Copyright */}
         <div className="footer-colophon-bottom">
-          {/* Developer Credit linking to mail client */}
           <div className="dev-credit-badge">
             <span className="dev-tag">ENGINEERED & BUILT BY</span>
             <a 
@@ -184,7 +193,6 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Copyright & Engine Specs */}
           <div className="footer-copyright-block">
             <span className="copyright-code">BUILD 2026.04 // SONY FX3 HUD ENGINE</span>
             <span className="copyright-legal">© {new Date().getFullYear()} PAWAN EDITS. ALL RIGHTS RESERVED.</span>

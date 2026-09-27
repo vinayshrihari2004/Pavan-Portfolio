@@ -107,16 +107,28 @@
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
-.logo-accent {
-  font-family: monospace;
-  font-size: 22px;
-  font-weight: 900;
-  color: #00d4ff;
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+.brand-logo-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+  background: rgba(2, 13, 36, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+.footer-brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .logo-name {
@@ -281,7 +293,7 @@
   transform: translateY(-2px);
 }
 
-/* 5. ROW 4: DEVELOPER CREDIT (MAILTO) & COPYRIGHT */
+/* 5. ROW 4: DEVELOPER CREDIT & COPYRIGHT */
 .footer-colophon-bottom {
   display: flex;
   justify-content: space-between;
@@ -292,7 +304,6 @@
   border-top: 1px solid rgba(0, 212, 255, 0.1);
 }
 
-/* Developer Credit Badge */
 .dev-credit-badge {
   display: flex;
   align-items: center;
@@ -352,7 +363,6 @@
   transform: scale(1.2);
 }
 
-/* Copyright Telemetry */
 .footer-copyright-block {
   display: flex;
   flex-direction: column;
