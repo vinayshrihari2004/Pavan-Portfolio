@@ -44,10 +44,17 @@ export default function Navbar() {
   return (
     <header className={`fx3-navbar ${isScrolled ? "is-scrolled" : ""}`}>
       <div className="fx3-nav-container">
-        {/* LEFT: BRAND & AVATAR IDENTIFIER */}
+        {/* LEFT: BRAND IDENTIFIER WITH LOGO IMAGE */}
         <div className="fx3-nav-brand" onClick={() => scrollToSection("hero")}>
           <div className="fx3-brand-avatar">
-            <span className="brand-avatar-initial">P.</span>
+            <img
+              src="/logo.webp"
+              alt="Pawan Edits Logo"
+              className="fx3-brand-logo-img"
+              width="34"
+              height="34"
+              loading="eager"
+            />
           </div>
           <div className="fx3-brand-meta">
             <span className="fx3-brand-title">Pavan Edits</span>

@@ -39,7 +39,7 @@
 }
 
 /* =========================================================
-   1. LEFT: BRAND IDENTIFIER
+   1. LEFT: BRAND IDENTIFIER & LOGO
    ========================================================= */
 
 .fx3-nav-brand {
@@ -51,30 +51,33 @@
   flex-shrink: 0;
 }
 
-/* Avatar Badge */
+/* Logo container badge */
 .fx3-brand-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 4px;
-  background: #00d4ff;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(2, 13, 36, 0.8);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.45);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .fx3-nav-brand:hover .fx3-brand-avatar {
   transform: scale(1.05);
-  box-shadow: 0 0 22px rgba(0, 212, 255, 0.7);
+  border-color: #00d4ff;
+  box-shadow: 0 0 22px rgba(0, 212, 255, 0.55);
 }
 
-.brand-avatar-initial {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 19px;
-  font-weight: 900;
-  color: #010714;
-  line-height: 1;
+/* Logo image styling */
+.fx3-brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .fx3-brand-meta {
@@ -134,7 +137,6 @@
   letter-spacing: 1px;
 }
 
-/* REC Flasher */
 .rec-chip {
   border-color: rgba(255, 59, 48, 0.35);
 }
@@ -156,7 +158,6 @@
   font-size: 9px;
 }
 
-/* SMPTE Clock */
 .tc-clock-icon {
   font-size: 10px;
   color: #00d4ff;
@@ -167,7 +168,6 @@
   font-weight: 700;
 }
 
-/* Codec Metadata */
 .codec-chip .telemetry-val {
   color: #c0d3ef;
   font-size: 9.5px;
@@ -179,7 +179,6 @@
   font-size: 9px;
 }
 
-/* Availability Status */
 .slots-chip {
   border-color: rgba(0, 212, 255, 0.3);
 }
@@ -243,7 +242,6 @@
   width: 100%;
 }
 
-/* Initiate Project CTA */
 .fx3-nav-initiate-btn {
   display: inline-flex;
   align-items: center;
@@ -323,12 +321,8 @@
   }
 
   .fx3-brand-avatar {
-    width: 28px;
-    height: 28px;
-  }
-
-  .brand-avatar-initial {
-    font-size: 16px;
+    width: 30px;
+    height: 30px;
   }
 
   .fx3-nav-initiate-btn {
