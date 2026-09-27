@@ -1,7 +1,7 @@
-/* =========================================================
+/* ==========================================================================
    HERO SECTION // SONY FX3 CINEMA RIG
-   Theme: Cyan (#00D4FF) to Deep Navy (#010714)
-   ========================================================= */
+   Theme: Electric Cyan (#00D4FF) to Deep Studio Navy (#010714)
+   ========================================================================== */
 
 .hero-section {
   position: relative;
@@ -13,22 +13,23 @@
   padding: 110px 5% 60px;
   box-sizing: border-box;
   overflow: clip;
+  background-color: #010714;
 }
 
 .hero-ambient-glow {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 50%;
-  transform: translate3d(-50%, -20%, 0);
-  width: 650px;
-  height: 650px;
+  transform: translate3d(-50%, -15%, 0);
+  width: 750px;
+  height: 750px;
   background: radial-gradient(
     circle,
-    rgba(0, 212, 255, 0.1) 0%,
-    rgba(2, 13, 36, 0.05) 50%,
-    transparent 70%
+    rgba(0, 212, 255, 0.08) 0%,
+    rgba(2, 13, 36, 0.03) 50%,
+    transparent 75%
   );
-  filter: blur(90px);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
 }
@@ -45,7 +46,10 @@
   z-index: 2;
 }
 
-/* LEFT COLUMN */
+/* ==========================================================================
+   LEFT COLUMN: CONTENT & METRICS
+   ========================================================================== */
+
 .hero-content-col {
   display: flex;
   flex-direction: column;
@@ -176,114 +180,286 @@
   color: rgba(0, 212, 255, 0.3);
 }
 
-/* RIGHT COLUMN */
+/* ==========================================================================
+   RIGHT COLUMN: SEAMLESS CREATOR COMPOSITION (ZERO HARD EDGES)
+   ========================================================================== */
+
 .hero-visual-col {
+  position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  position: relative;
+  user-select: none;
 }
 
-.hero-frameless-stage {
+.fx3-cinema-stage {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  height: 600px;
+  max-width: 620px;
+  height: 680px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overflow: visible;
 }
 
-.hero-cutout-wrapper {
-  position: relative;
+/* 1. NATURAL CIRCULAR SKY GLOW (Completely zero edge boundaries) */
+.fx3-soft-radial-sky {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(0, 212, 255, 0.32) 0%,
+    rgba(2, 27, 74, 0.22) 42%,
+    rgba(1, 7, 20, 0.05) 70%,
+    transparent 85%
+  );
+  filter: blur(75px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 2. ELECTRIC CYAN CORONA (Outlining his neck, shoulders, and hair) */
+.fx3-creator-cyan-halo {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(0, 212, 255, 0.65) 0%,
+    rgba(0, 160, 255, 0.35) 40%,
+    rgba(1, 7, 20, 0) 70%
+  );
+  filter: blur(36px);
+  pointer-events: none;
   z-index: 2;
+}
+
+/* 3. PORTRAIT IMAGE MOUNT */
+.fx3-portrait-mount {
+  position: relative;
+  z-index: 3;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0,0,0,0.4) 88%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0,0,0,0.4) 88%, transparent 100%);
 }
 
-.hero-frameless-img {
-  max-height: 580px;
+/* 4. THE GRADED CREATOR (Blends directly into the navy background) */
+.fx3-portrait-core {
+  position: relative;
+  display: block;
   width: auto;
+  max-height: 660px;
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
-  display: block;
-  opacity: 0.9;
+
+  /* Direct CSS Color-Grading (Converts warm skin/plaid into the cool teal/navy palette) */
+  filter:
+    saturate(0.72)
+    contrast(1.18)
+    brightness(0.95)
+    hue-rotate(-8deg)
+    drop-shadow(0 0 22px rgba(0, 212, 255, 0.45))
+    drop-shadow(0 14px 45px rgba(0, 0, 0, 0.95));
   transform: translateZ(0);
+
+  /* Continuous 6-stop mask that dissolves arms and torso directly into #010714 */
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 46%,
+    rgba(0, 0, 0, 0.85) 60%,
+    rgba(0, 0, 0, 0.38) 74%,
+    rgba(0, 0, 0, 0.08) 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 46%,
+    rgba(0, 0, 0, 0.85) 60%,
+    rgba(0, 0, 0, 0.38) 74%,
+    rgba(0, 0, 0, 0.08) 88%,
+    transparent 100%
+  );
 }
 
-/* DESKTOP PILLS */
-.pill-hardware-card {
+/* ==========================================================================
+   TIGHT SONY FX3 ORBIT HUD CARDS
+   ========================================================================== */
+
+.fx3-orbit-hud {
   position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 9px 16px;
-  background: rgba(3, 12, 32, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(0, 212, 255, 0.45);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85);
-  z-index: 20;
-  user-select: none;
-  white-space: nowrap;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
 }
 
-.pill-icon-svg {
-  width: 22px;
-  height: 22px;
+.fx3-hud-card {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 14px 9px 12px;
+  background: linear-gradient(135deg, rgba(2, 12, 34, 0.94) 0%, rgba(1, 7, 20, 0.98) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.38);
+  border-radius: 8px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.85),
+    0 0 16px rgba(0, 212, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.fx3-hud-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: #00D4FF;
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.95),
+    0 0 24px rgba(0, 212, 255, 0.32);
+}
+
+.hud-card-lead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+.hud-status-led {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00D4FF;
+  box-shadow: 0 0 6px #00D4FF;
+}
+
+.hud-chip-tag {
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(0, 212, 255, 0.65);
+}
+
+.hud-card-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-icon {
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.pill-icon-svg svg {
+.hud-icon svg {
   width: 100%;
   height: 100%;
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.5));
 }
 
-.pill-text-wrap {
+.hud-text-stack {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.pill-head {
-  font-size: 0.76rem;
+.hud-title {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 11.5px;
   font-weight: 800;
-  color: #ffffff;
-  line-height: 1.15;
+  letter-spacing: 0.4px;
+  color: #FFFFFF;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
-.pill-subhead {
-  font-family: monospace;
-  font-size: 11px;
+.hud-sub {
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  color: #00d4ff;
+  color: #00D4FF;
   line-height: 1;
+  white-space: nowrap;
 }
 
-.pill-viral   { top: 70px;  left: -20px; animation: floatPillA 6s ease-in-out infinite; }
-.pill-shorts  { top: 235px; left: -35px; animation: floatPillB 7s ease-in-out infinite; }
-.pill-talking { bottom: 60px; left: -20px; animation: floatPillC 8s ease-in-out infinite; }
-.pill-podcast { top: 90px;  right: -20px; animation: floatPillB 6.5s ease-in-out infinite; }
-.pill-sound   { top: 255px; right: -35px; animation: floatPillA 7.5s ease-in-out infinite; }
-.pill-kinetic { bottom: 50px; right: -20px; animation: floatPillC 8.5s ease-in-out infinite; }
+/* Precise card coordinates hugging silhouette */
+.hud-pos-viral {
+  top: 75px;
+  left: -12px;
+  animation: fx3FloatA 6s ease-in-out infinite;
+}
 
-@keyframes floatPillA { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-@keyframes floatPillB { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-@keyframes floatPillC { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.hud-pos-shorts {
+  top: 240px;
+  left: -28px;
+  animation: fx3FloatB 7.5s ease-in-out infinite;
+}
 
-/* TABLET */
+.hud-pos-talking {
+  bottom: 85px;
+  left: -8px;
+  animation: fx3FloatC 8s ease-in-out infinite;
+}
+
+.hud-pos-podcast {
+  top: 95px;
+  right: -12px;
+  animation: fx3FloatB 7s ease-in-out infinite;
+}
+
+.hud-pos-sound {
+  top: 260px;
+  right: -28px;
+  animation: fx3FloatA 8s ease-in-out infinite;
+}
+
+.hud-pos-kinetic {
+  bottom: 75px;
+  right: -8px;
+  animation: fx3FloatC 6.5s ease-in-out infinite;
+}
+
+@keyframes fx3FloatA {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes fx3FloatB {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+@keyframes fx3FloatC {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* ==========================================================================
+   TABLET & RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
 @media (max-width: 1024px) {
   .hero-section {
     padding-top: 100px;
@@ -303,19 +479,36 @@
     justify-content: center;
   }
 
-  .hero-frameless-stage {
-    max-width: 440px;
-    height: 520px;
+  .fx3-cinema-stage {
+    max-width: 500px;
+    height: 560px;
   }
 
-  .hero-frameless-img {
-    max-height: 480px;
+  .fx3-portrait-core {
+    max-height: 540px;
   }
+
+  .fx3-soft-radial-sky {
+    width: 560px;
+    height: 480px;
+    top: -100px;
+  }
+
+  .fx3-creator-cyan-halo {
+    width: 290px;
+    height: 330px;
+    top: 50px;
+  }
+
+  .hud-pos-viral   { top: 40px;  left: 0; }
+  .hud-pos-shorts  { top: 190px; left: -14px; }
+  .hud-pos-talking { bottom: 50px; left: 0; }
+
+  .hud-pos-podcast { top: 60px;  right: 0; }
+  .hud-pos-sound   { top: 210px; right: -14px; }
+  .hud-pos-kinetic { bottom: 40px; right: 0; }
 }
 
-/* =========================================================
-   MOBILE RESPONSIVENESS (<= 768px)
-   ========================================================= */
 @media (max-width: 768px) {
   .hero-section {
     padding: 80px 4% 30px;
@@ -355,7 +548,6 @@
     font-size: 1em;
   }
 
-  /* Explicit size guarantee to eliminate global span overrides */
   .hero-gradient-text {
     font-size: 1.08em !important;
     text-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
@@ -387,67 +579,60 @@
     font-size: 1.15rem;
   }
 
-  .hero-visual-col {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+  .fx3-cinema-stage {
+    max-width: 360px;
+    height: 460px;
   }
 
-  .hero-frameless-stage {
-    position: relative;
-    width: 100%;
-    max-width: 340px;
-    height: 440px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+  .fx3-portrait-core {
+    max-height: 430px;
   }
 
-  .hero-frameless-img {
-    max-height: 380px;
-    width: auto;
-    object-fit: contain;
+  .fx3-soft-radial-sky {
+    width: 360px;
+    height: 340px;
+    top: -50px;
+    filter: blur(45px);
   }
 
-  .pill-hardware-card {
-    position: absolute;
-    display: inline-flex !important;
+  .fx3-creator-cyan-halo {
+    width: 220px;
+    height: 250px;
+    top: 30px;
+    filter: blur(24px);
+  }
+
+  .fx3-hud-card {
+    padding: 5px 8px;
+    gap: 2px;
+    border-radius: 6px;
     animation: none !important;
-    padding: 5px 9px;
-    gap: 6px;
-    border-radius: 8px;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: #020c22;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
-    z-index: 10;
   }
 
-  .pill-icon-svg {
-    width: 16px;
-    height: 16px;
+  .hud-card-lead {
+    display: none;
   }
 
-  .pill-head {
-    font-size: 10px;
-    letter-spacing: 0.4px;
+  .hud-icon {
+    width: 14px;
+    height: 14px;
   }
 
-  .pill-subhead {
-    font-size: 9px;
-    letter-spacing: 0.4px;
+  .hud-title {
+    font-size: 9.5px;
   }
 
-  /* 3 Left Flank Pills */
-  .pill-viral   { top: 25px;  left: 2px; }
-  .pill-shorts  { top: 155px; left: -4px; }
-  .pill-talking { bottom: 25px; left: 2px; }
+  .hud-sub {
+    font-size: 8px;
+  }
 
-  /* 3 Right Flank Pills */
-  .pill-podcast { top: 55px;  right: 2px; }
-  .pill-sound   { top: 185px; right: -4px; }
-  .pill-kinetic { bottom: 45px; right: 2px; }
+  .hud-pos-viral   { top: 25px;  left: 2px; }
+  .hud-pos-shorts  { top: 155px; left: -6px; }
+  .hud-pos-talking { bottom: 25px; left: 2px; }
+
+  .hud-pos-podcast { top: 45px;  right: 2px; }
+  .hud-pos-sound   { top: 175px; right: -6px; }
+  .hud-pos-kinetic { bottom: 35px; right: 2px; }
 }
 
 @media (max-width: 380px) {
@@ -455,25 +640,25 @@
     font-size: 1.85rem;
   }
 
-  .hero-frameless-stage {
+  .fx3-cinema-stage {
     max-width: 310px;
     height: 400px;
   }
 
-  .hero-frameless-img {
+  .fx3-portrait-core {
     max-height: 340px;
   }
 
-  .pill-hardware-card {
+  .fx3-hud-card {
     padding: 4px 7px;
-    gap: 5px;
+    gap: 4px;
   }
 
-  .pill-head {
-    font-size: 9.5px;
+  .hud-title {
+    font-size: 9px;
   }
 
-  .pill-subhead {
-    font-size: 8.5px;
+  .hud-sub {
+    font-size: 7.5px;
   }
 }

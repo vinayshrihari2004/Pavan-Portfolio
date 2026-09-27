@@ -112,21 +112,33 @@ const PauseIcon = () => (
 export default function EditSuite() {
   const [activeProject, setActiveProject] = useState(projects[0]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0); // 0 to 100%
+  const [currentTimecode, setCurrentTimecode] = useState("00:00:00:00");
   const mainVideoRef = useRef(null);
   const sectionRef = useRef(null);
 
   const activeIndex = projects.findIndex((p) => p.id === activeProject.id);
   const activeNumber = String(activeIndex + 1).padStart(2, "0");
 
-  // Defer video src assignment and playback until section enters the viewport
+  // Keep main stage video synced with the active project
+  useEffect(() => {
+    if (mainVideoRef.current) {
+      mainVideoRef.current.src = activeProject.video;
+      mainVideoRef.current.currentTime = 0;
+      setProgress(0);
+      mainVideoRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
+    }
+  }, [activeProject]);
+
+  // Viewport autoplay observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && mainVideoRef.current) {
-            if (!mainVideoRef.current.src) {
-              mainVideoRef.current.src = activeProject.video;
-            }
             mainVideoRef.current
               .play()
               .then(() => setIsPlaying(true))
@@ -145,31 +157,53 @@ export default function EditSuite() {
     }
 
     return () => observer.disconnect();
-  }, [activeProject]);
+  }, []);
+
+  // Update SMPTE Timecode & Playhead progress percentage
+  const handleTimeUpdate = () => {
+    const vid = mainVideoRef.current;
+    if (!vid || !vid.duration) return;
+
+    const current = vid.currentTime;
+    const dur = vid.duration;
+    setProgress((current / dur) * 100);
+
+    // Calculate live SMPTE frames (at 24 FPS)
+    const totalFrames = Math.floor(current * 24);
+    const frames = String(totalFrames % 24).padStart(2, "0");
+    const totalSecs = Math.floor(current);
+    const secs = String(totalSecs % 60).padStart(2, "0");
+    const mins = String(Math.floor(totalSecs / 60)).padStart(2, "0");
+    setCurrentTimecode(`00:${mins}:${secs}:${frames}`);
+  };
+
+  // Auto-advance timeline to the next project on video finish
+  const handleVideoEnded = () => {
+    const nextIndex = (activeIndex + 1) % projects.length;
+    setActiveProject(projects[nextIndex]);
+  };
 
   const handleProjectSelect = (project) => {
     setActiveProject(project);
-    if (mainVideoRef.current) {
-      mainVideoRef.current.src = project.video;
-      mainVideoRef.current.currentTime = 0;
-      mainVideoRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
-    }
   };
 
   const togglePlayback = () => {
     if (!mainVideoRef.current) return;
-    if (!mainVideoRef.current.src) {
-      mainVideoRef.current.src = activeProject.video;
-    }
     if (mainVideoRef.current.paused) {
-      mainVideoRef.current.play();
-      setIsPlaying(true);
+      mainVideoRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
     } else {
       mainVideoRef.current.pause();
       setIsPlaying(false);
+    }
+  };
+
+  const handleThumbnailLoaded = (e) => {
+    const vid = e.target;
+    if (vid && vid.currentTime === 0) {
+      vid.currentTime = 0.1;
     }
   };
 
@@ -185,7 +219,7 @@ export default function EditSuite() {
       </div>
 
       <div className="es-window">
-        {/* NLE Application Topbar */}
+        {/* Topbar */}
         <div className="es-topbar">
           <div className="es-dots">
             <span className="dot-red"></span>
@@ -195,7 +229,7 @@ export default function EditSuite() {
           <div className="es-filename">PAWAN_EDITS.PRPROJ</div>
         </div>
 
-        {/* Central Workspace */}
+        {/* Workspace */}
         <div className="es-workspace">
           <div className="es-ghost" aria-hidden="true">
             {activeNumber}
@@ -206,13 +240,23 @@ export default function EditSuite() {
             <video
               ref={mainVideoRef}
               key={activeProject.id}
-              data-src={activeProject.video}
+              src={activeProject.video}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={handleVideoEnded}
+              onLoadedMetadata={handleThumbnailLoaded}
               className="es-reel-video"
               muted
-              loop
               playsInline
-              preload="none"
+              preload="metadata"
             />
+
+            {/* In-Reel Mini Progress Bar */}
+            <div className="es-reel-scrub">
+              <div 
+                className="es-reel-scrub-fill" 
+                style={{ width: `${progress}%` }}
+              />
+            </div>
 
             <button
               type="button"
@@ -226,7 +270,7 @@ export default function EditSuite() {
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </button>
 
-            <span className="es-timecode">{activeProject.timecode}</span>
+            <span className="es-timecode">{currentTimecode}</span>
           </div>
 
           {/* Project Details */}
@@ -265,33 +309,50 @@ export default function EditSuite() {
           </div>
         </div>
 
-        {/* Continuous Connecting Timeline Circuit Strip */}
+        {/* Live Running Timeline Track */}
         <div className="es-map-scroll-wrap">
           <div className="es-map">
             {projects.map((project, index) => {
               const isActive = activeProject.id === project.id;
+              const isPast = index < activeIndex;
+
               return (
                 <button
                   type="button"
                   key={project.id}
-                  className={`es-node ${isActive ? "is-active" : ""}`}
+                  className={`es-node ${isActive ? "is-active" : ""} ${isPast ? "is-past" : ""}`}
                   onClick={() => handleProjectSelect(project)}
                   aria-current={isActive ? "true" : undefined}
                 >
+                  {/* Live Progress Bar Segment connecting to the next node */}
+                  {index < projects.length - 1 && (
+                    <div className="es-track-segment">
+                      <div
+                        className="es-track-fill"
+                        style={{
+                          width: isActive
+                            ? `${progress}%`
+                            : isPast
+                            ? "100%"
+                            : "0%",
+                        }}
+                      />
+                    </div>
+                  )}
+
                   <span className="es-thumb">
                     <video
-                      data-src={`${project.video}?track_id=${project.id}`}
-                      onMouseEnter={(e) => {
-                        if (!e.target.src) {
-                          e.target.src = e.target.dataset.src;
-                        }
-                        e.target.play().catch(() => {});
+                      src={project.video}
+                      onLoadedMetadata={handleThumbnailLoaded}
+                      onMouseEnter={(e) => e.target.play().catch(() => {})}
+                      onMouseLeave={(e) => {
+                        e.target.pause();
+                        e.target.currentTime = 0.1;
                       }}
-                      onMouseLeave={(e) => e.target.pause()}
                       muted
                       loop
                       playsInline
-                      preload="none"
+                      preload="metadata"
                       className="es-node-mini-video"
                     />
                   </span>

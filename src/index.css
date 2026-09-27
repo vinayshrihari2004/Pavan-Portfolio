@@ -59,6 +59,19 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
   background-color: var(--background);
+
+  /* Completely suppress native browser scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge legacy */
+}
+
+/* Chrome, Safari, Edge, WebKit */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 body {
@@ -124,7 +137,6 @@ body::before {
     word-break: break-word;
   }
 
-  /* Scoped only to specific micro-labels, never global tags */
   .cs-eyebrow,
   .es-header-tag,
   .es-label,
@@ -137,7 +149,7 @@ body::before {
 }
 
 /* =========================================================
-   4. UTILITIES & SCROLLBAR
+   4. UTILITIES
    ========================================================= */
 a {
   text-decoration: none;
@@ -161,23 +173,6 @@ video {
 
 ul {
   list-style: none;
-}
-
-::-webkit-scrollbar {
-  width: 7px;
-}
-
-::-webkit-scrollbar-track {
-  background: #010714;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 255, 0.45);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #00d4ff;
 }
 
 /* =========================================================

@@ -25,14 +25,14 @@ function App() {
       {/* Main Page Content */}
       <main className="app-main-content">
         <Hero />
-        <Testimonials />
         <CreatorStyles />
+        <EditSuite />
 
         <Suspense fallback={<div style={{ minHeight: "300px" }} />}>
-          <EditSuite />
           <CaseStudies />
-          <BookingSection />
+          <Testimonials />
           <AboutMe />
+          <BookingSection />
         </Suspense>
 
         <Footer />

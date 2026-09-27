@@ -1,5 +1,3 @@
-
-
 /* =========================================================
    EDIT SUITE // PURE AUTOPLAYING MP4 RIG
    ========================================================= */
@@ -186,7 +184,7 @@
   background-color: #0b1124;
 }
 
-/* Soft Edge Vignette (Subtitles stay clear) */
+/* Soft Edge Vignette */
 .es-reel::after {
   content: "";
   position: absolute;
@@ -344,7 +342,7 @@
 .es-badge--dv { color: #ffd27a; background: #1c1608; border: 1.5px solid #b58a2b; }
 
 /* =========================================================
-   CONNECTED PROJECT TIMELINE MAP
+   CONNECTED PROJECT TIMELINE MAP (STRICTLY CLAMPED)
    ========================================================= */
 
 .es-map-scroll-wrap {
@@ -363,19 +361,21 @@
 
 .es-map {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  align-items: start;
-  gap: 20px;
-  padding: 55px 44px 34px;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 24px;
+  padding: 50px 36px 30px;
   box-sizing: border-box;
-  min-width: 880px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .es-node {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
   padding: 0;
   text-align: left;
@@ -388,10 +388,10 @@
 .es-node::before {
   content: "";
   position: absolute;
-  top: -33px;
-  left: 31px;
-  width: 16px;
-  height: 16px;
+  top: -30px;
+  left: 24px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #3b5cb8;
   z-index: 2;
@@ -402,8 +402,8 @@
 .es-node::after {
   content: "";
   position: absolute;
-  top: -26px;
-  left: 39px;
+  top: -24px;
+  left: 32px;
   width: 100%;
   height: 2px;
   background: rgba(70, 120, 240, 0.45);
@@ -414,57 +414,73 @@
   display: none;
 }
 
-/* Thumbnail Node */
+/* Rigidly Clamped Thumbnail Container */
 .es-thumb {
   flex: none;
   display: block;
-  width: 78px;
-  height: 100px;
-  border-radius: 14px;
+  width: 62px;
+  height: 82px;
+  max-width: 62px;
+  max-height: 82px;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   background: #010714;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* Force video to conform strictly to thumbnail boundaries */
 .es-node-mini-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
   display: block;
+  pointer-events: none;
 }
 
 .es-node-text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .es-node-num {
-  font-size: 15px;
-  font-weight: 600;
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 700;
   color: #8fa5de;
-  transition: color 0.3s ease;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.25s ease;
 }
 
 .es-node-title {
   display: block;
-  max-width: 120px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.3;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.25;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .es-node:hover .es-thumb {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
 /* Active State */
 .es-node.is-active::before {
   background: #00d4ff;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.2),
-              0 0 18px rgba(0, 212, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.25),
+              0 0 16px rgba(0, 212, 255, 0.85);
 }
 
 .es-node.is-active::after {
@@ -473,12 +489,11 @@
 
 .es-node.is-active .es-thumb {
   border-color: #00d4ff;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.45),
-              0 0 45px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.45);
 }
 
 .es-node.is-active .es-node-num {
-  color: #ffffff;
+  color: #00d4ff;
 }
 
 /* =========================================================
@@ -509,6 +524,11 @@
   .es-tools {
     justify-content: center;
   }
+
+  .es-map {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    min-width: 820px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -538,4 +558,83 @@
     font-size: 0.8rem;
     padding: 5px 12px;
   }
+
+  .es-map {
+    padding: 45px 20px 24px;
+  }
+}
+
+/* In-Reel bottom scrub bar */
+.es-reel-scrub {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+.es-reel-scrub-fill {
+  height: 100%;
+  background: #00d4ff;
+  box-shadow: 0 0 8px #00d4ff;
+  transition: width 0.1s linear;
+}
+
+/* Remove old static ::after line from .es-node */
+.es-node::after {
+  display: none !important;
+}
+
+/* Live dynamic timeline segment */
+.es-track-segment {
+  position: absolute;
+  top: -24px;
+  left: 32px;
+  width: calc(100% + 24px);
+  height: 2px;
+  background: rgba(70, 120, 240, 0.25);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.es-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff 0%, #3b82f6 100%);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+  transition: width 0.15s linear;
+}
+
+/* Connecting Dot States */
+.es-node::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 24px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 2px solid rgba(80, 140, 255, 0.4);
+  z-index: 2;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.es-node.is-past::before {
+  background: #00d4ff;
+  border-color: #00d4ff;
+}
+
+.es-node.is-active::before {
+  background: #00d4ff;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.35),
+              0 0 20px rgba(0, 212, 255, 0.9);
+  animation: esDotPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes esDotPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
 }
