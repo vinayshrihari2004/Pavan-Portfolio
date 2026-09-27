@@ -16,7 +16,6 @@
   overflow: clip;
 }
 
-/* HEADER & LIVE STATUS */
 .t-section-header {
   text-align: center;
   margin-bottom: 35px;
@@ -82,7 +81,6 @@
   margin: 0;
 }
 
-/* CAROUSEL STAGE */
 .t-carousel-stage {
   position: relative;
   width: 100%;
@@ -115,7 +113,6 @@
   pointer-events: none;
 }
 
-/* BASE WRITTEN CARD */
 .t-card {
   position: absolute;
   border-radius: 18px;
@@ -126,13 +123,11 @@
   box-sizing: border-box;
   transform: translateZ(0);
   will-change: transform, opacity;
-  /* Shortened transition to handle 1s fast rotation */
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.2s ease;
 }
 
-/* ACTIVE MAIN CARD */
 .t-card.t-card-active {
   width: 620px;
   min-height: 320px;
@@ -147,19 +142,12 @@
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  /* Snappy 0.25s entrance */
   animation: cardEntrance 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes cardEntrance {
-  from {
-    opacity: 0.6;
-    transform: translateX(-50%) scale(0.96) translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) scale(1) translateY(0);
-  }
+  from { opacity: 0.6; transform: translateX(-50%) scale(0.96) translateY(6px); }
+  to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
 }
 
 .t-card.t-card-active.dragging {
@@ -167,13 +155,6 @@
   animation: none !important;
 }
 
-.t-card.t-card-active:hover {
-  border-color: #00d4ff;
-  box-shadow: 0 30px 85px rgba(0, 0, 0, 0.98),
-              0 0 45px rgba(0, 212, 255, 0.35);
-}
-
-/* 1-SECOND PROGRESS BAR */
 .t-card-progress-track {
   position: absolute;
   top: 0;
@@ -200,7 +181,6 @@
   to { width: 100%; }
 }
 
-/* SIDE CARDS (PREV & NEXT) */
 .t-card.t-card-left {
   width: 460px;
   min-height: 270px;
@@ -231,13 +211,6 @@
   justify-content: space-between;
 }
 
-.t-card.t-card-left:hover,
-.t-card.t-card-right:hover {
-  opacity: 0.7;
-  filter: blur(0px) brightness(0.9);
-}
-
-/* HUD TOP BAR */
 .t-hud-top-bar {
   display: flex;
   justify-content: space-between;
@@ -279,7 +252,6 @@
   letter-spacing: 0.8px;
 }
 
-/* QUOTE TEXT */
 .t-quote-text {
   font-size: 1.15rem;
   line-height: 1.75;
@@ -295,7 +267,6 @@
   margin: 0;
 }
 
-/* AUTHOR FOOTER */
 .t-author-footer {
   display: flex;
   justify-content: space-between;
@@ -334,7 +305,6 @@
   letter-spacing: 0.5px;
 }
 
-/* ARROWS */
 .t-nav-arrow {
   position: absolute;
   width: 46px;
@@ -353,18 +323,9 @@
   z-index: 20;
 }
 
-.t-nav-arrow:hover {
-  background: rgba(0, 212, 255, 0.25);
-  border-color: #00d4ff;
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-  transform: scale(1.08);
-}
-
 .t-arrow-prev { left: 4%; }
 .t-arrow-next { right: 4%; }
 
-/* PAGINATION DOTS */
 .t-pagination-dots {
   display: flex;
   gap: 8px;
@@ -389,33 +350,83 @@
   transform: scale(1.3);
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+/* MOBILE HARDWARE OPTIMIZATIONS (<= 768px) */
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 70px 4% 45px;
+    min-height: auto;
+  }
+
+  .t-section-header {
+    margin-bottom: 20px;
+  }
+
+  .t-title {
+    font-size: 1.85rem;
+  }
+
+  .t-carousel-stage {
+    min-height: 320px;
+    perspective: none;
+  }
+
   .t-card.t-card-left,
   .t-card.t-card-right {
-    display: none;
+    display: none !important;
   }
-  .t-card.t-card-active {
-    width: 90%;
-    max-width: 520px;
-    padding: 24px;
-  }
-  .t-arrow-prev { left: 1%; }
-  .t-arrow-next { right: 1%; }
-  .t-carousel-stage { min-height: 360px; }
-}
 
-@media (max-width: 640px) {
   .t-card.t-card-active {
-    width: 94%;
-    padding: 22px;
+    width: 92vw;
+    max-width: 360px;
+    min-height: 280px;
+    padding: 20px 18px;
+    background: #020b23;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 212, 255, 0.15);
   }
+
+  .t-hud-top-bar {
+    margin-bottom: 14px;
+  }
+
   .t-quote-text {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
   }
+
   .t-author-footer {
+    padding-top: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    gap: 10px;
+  }
+
+  .t-client-name {
+    font-size: 1rem;
+  }
+
+  .t-client-role {
+    font-size: 11px;
+  }
+
+  .t-metric-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .t-nav-arrow {
+    display: none !important;
+  }
+
+  .t-pagination-dots {
+    margin-top: 18px;
+    gap: 6px;
+  }
+
+  .t-dot {
+    width: 6px;
+    height: 6px;
   }
 }

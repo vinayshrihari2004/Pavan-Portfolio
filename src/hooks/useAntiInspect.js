@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+{/*import { useEffect } from "react";
 
 export function useAntiInspect() {
   useEffect(() => {
@@ -53,4 +53,4 @@ export function useAntiInspect() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-}
+} */}

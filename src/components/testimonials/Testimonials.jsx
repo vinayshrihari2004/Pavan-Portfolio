@@ -34,7 +34,7 @@ export default function Testimonials() {
     setActive((curr) => (curr - 1 + total) % total);
   }, [total]);
 
-  // Only run the 1s interval when this section is actively on screen
+  // Pause interval when out of viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
@@ -55,7 +55,7 @@ export default function Testimonials() {
     return () => clearInterval(timer);
   }, [isInView, isPaused, isDragging, handleNext, total]);
 
-  // Directional touch handlers
+  // Directional touch handlers: preserves native mobile page scrolling
   const handleTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
     startY.current = e.touches[0].clientY;
@@ -95,6 +95,24 @@ export default function Testimonials() {
     isHorizontalSwipe.current = null;
   };
 
+  const handleMouseDown = (e) => {
+    startX.current = e.clientX;
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setDragOffset(e.clientX - startX.current);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    if (dragOffset > 40) handlePrev();
+    else if (dragOffset < -40) handleNext();
+    setDragOffset(0);
+  };
+
   return (
     <section
       ref={containerRef}
@@ -111,7 +129,7 @@ export default function Testimonials() {
         <div className="t-status-row">
           <span className="t-live-pulse"></span>
           <p className="t-sub-hint">
-            {isPaused ? "AUTO-CYCLE PAUSED" : "1S AUTO-CYCLE ACTIVE"}
+            {isPaused ? "AUTO-CYCLE PAUSED" : "1S HIGH-SPEED STREAMING"}
           </p>
         </div>
       </div>
@@ -121,6 +139,9 @@ export default function Testimonials() {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
       >
         <div className="t-stage-glow"></div>
 

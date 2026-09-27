@@ -5,12 +5,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: "esnext",
-    minify: "esbuild",
     cssCodeSplit: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
         },
       },
     },

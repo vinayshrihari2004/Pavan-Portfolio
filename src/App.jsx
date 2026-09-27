@@ -7,7 +7,7 @@ import CreatorStyles from "./components/CreatorStyles/CreatorStyles";
 import Footer from "./components/layout/Footer";
 import "./App.css";
 
-// Lazy-load heavier below-the-fold sections
+// Lazy load below-the-fold sections to minimize primary JS payload
 const EditSuite = lazy(() => import("./components/EditSuite/EditSuite"));
 const CaseStudies = lazy(() => import("./components/CaseStudies/CaseStudies"));
 const BookingSection = lazy(() => import("./components/booking/BookingSection"));
@@ -16,9 +16,13 @@ const AboutMe = lazy(() => import("./components/AboutMe/AboutMe"));
 function App() {
   return (
     <div className="portfolio-app-root">
+      {/* Top Sony FX3 HUD Status Bar */}
       <Navbar />
+
+      {/* Navigation Dock */}
       <LensScale />
 
+      {/* Main Page Content */}
       <main className="app-main-content">
         <Hero />
         <Testimonials />
