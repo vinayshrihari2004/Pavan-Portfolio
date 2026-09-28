@@ -17,54 +17,60 @@ export default function LensScale() {
   const [activeStationId, setActiveStationId] = useState("hero");
 
   const stationsWrapRef = useRef(null);
-  const rafId = useRef(null);
 
   useEffect(() => {
-    const handleUpdate = () => {
+    // Disable active scroll tracking on mobile/tablet viewports to protect TBT and avoid forced reflow
+    if (typeof window === "undefined" || window.innerWidth <= 1024) return;
+
+    let cachedCenters = [];
+    let cachedTotalDist = 0;
+    let cachedStartY = 0;
+    let rafId = null;
+
+    // Measure and cache layout values once to avoid continuous layout reads
+    const measurePositions = () => {
       if (!stationsWrapRef.current) return;
-
       const buttons = stationsWrapRef.current.querySelectorAll(".vrail-station-node");
-      if (!buttons.length || buttons.length !== LENS_STATIONS.length) return;
+      if (!buttons.length) return;
 
-      // Extract the exact center Y coordinate for every focal station button
-      const stationCenters = Array.from(buttons).map(
+      cachedCenters = Array.from(buttons).map(
         (btn) => btn.offsetTop + btn.offsetHeight / 2
       );
+      cachedStartY = cachedCenters[0];
+      cachedTotalDist = cachedCenters[cachedCenters.length - 1] - cachedStartY;
+    };
 
-      const startY = stationCenters[0];
-      const endY = stationCenters[stationCenters.length - 1];
-      const totalTrackDist = endY - startY;
+    const timer = setTimeout(measurePositions, 200);
 
-      // Calculate global scroll progress (0.0 to 1.0)
+    const handleUpdate = () => {
+      if (!cachedTotalDist) return;
+
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const scrollFraction = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
 
-      // Continuous smooth travel down the track rail
-      const currentY = startY + totalTrackDist * scrollFraction;
+      const currentY = cachedStartY + cachedTotalDist * scrollFraction;
       setPlayheadY(currentY);
 
-      // Determine which two physical station nodes the playhead is currently between
       let calculatedMM = LENS_STATIONS[0].mm;
       let activeIndex = 0;
 
-      if (currentY <= stationCenters[0]) {
+      if (currentY <= cachedCenters[0]) {
         calculatedMM = LENS_STATIONS[0].mm;
         activeIndex = 0;
-      } else if (currentY >= stationCenters[stationCenters.length - 1]) {
+      } else if (currentY >= cachedCenters[cachedCenters.length - 1]) {
         calculatedMM = LENS_STATIONS[LENS_STATIONS.length - 1].mm;
         activeIndex = LENS_STATIONS.length - 1;
       } else {
-        for (let i = 0; i < stationCenters.length - 1; i++) {
-          const segStartY = stationCenters[i];
-          const segEndY = stationCenters[i + 1];
+        for (let i = 0; i < cachedCenters.length - 1; i++) {
+          const segStartY = cachedCenters[i];
+          const segEndY = cachedCenters[i + 1];
 
           if (currentY >= segStartY && currentY <= segEndY) {
             const segFraction = (currentY - segStartY) / (segEndY - segStartY);
             const segStartMM = LENS_STATIONS[i].mm;
             const segEndMM = LENS_STATIONS[i + 1].mm;
 
-            // Interpolate focal reading precisely within this specific pair of stops
             calculatedMM = Math.round(segStartMM + (segEndMM - segStartMM) * segFraction);
             activeIndex = segFraction >= 0.5 ? i + 1 : i;
             break;
@@ -74,25 +80,24 @@ export default function LensScale() {
 
       setCurrentMM(calculatedMM);
       setActiveStationId(LENS_STATIONS[activeIndex].id);
-
-      rafId.current = null;
+      rafId = null;
     };
 
     const onScroll = () => {
-      if (rafId.current === null) {
-        rafId.current = requestAnimationFrame(handleUpdate);
+      if (rafId === null) {
+        rafId = requestAnimationFrame(handleUpdate);
       }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", handleUpdate);
-    handleUpdate();
+    window.addEventListener("resize", measurePositions);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", handleUpdate);
-      if (rafId.current !== null) {
-        cancelAnimationFrame(rafId.current);
+      window.removeEventListener("resize", measurePositions);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, []);
@@ -106,26 +111,22 @@ export default function LensScale() {
 
   return (
     <aside className="vrail-container" aria-label="Timeline and Lens Scale Navigation">
-      {/* Top Telemetry */}
       <div className="vrail-top-telemetry">
         <span className="vrail-bracket">┌</span>
         <span className="vrail-axis-label">FOCAL // CTI</span>
         <span className="vrail-bracket">┐</span>
       </div>
 
-      {/* Main Track Core */}
       <div className="vrail-track-core">
         <div className="vrail-axis-line"></div>
         <div className="vrail-tick-marks"></div>
 
-        {/* Desktop CTI Playhead */}
         <div
           className="vrail-playhead-reticle"
           style={{
             transform: `translate3d(0, ${playheadY}px, 0) translateY(-50%)`,
           }}
         >
-          {/* Readout pill tracking exact physical needle position */}
           <div className="vrail-tc-pill">
             <span className="vrail-rec-dot"></span>
             <span className="vrail-tc-val">{currentMM}MM</span>
@@ -137,7 +138,6 @@ export default function LensScale() {
           <div className="vrail-playhead-hairline"></div>
         </div>
 
-        {/* Focal Buttons */}
         <div className="vrail-stations-wrap" ref={stationsWrapRef}>
           {LENS_STATIONS.map((station) => {
             const isActive = activeStationId === station.id;
@@ -164,14 +164,12 @@ export default function LensScale() {
         </div>
       </div>
 
-      {/* Bottom Telemetry */}
       <div className="vrail-bottom-telemetry">
         <span className="vrail-bracket">└</span>
         <span className="vrail-mode-tag">NLE 9:16</span>
         <span className="vrail-bracket">┘</span>
       </div>
 
-      {/* Mobile Indicator */}
       <div className="vrail-mobile-tc-chip">
         <span className="vrail-rec-dot"></span>
         <span>{currentMM}MM</span>
