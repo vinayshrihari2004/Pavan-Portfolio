@@ -19,16 +19,18 @@ export default function LensScale() {
   const stationsWrapRef = useRef(null);
 
   useEffect(() => {
-    // Disable active scroll tracking on mobile/tablet viewports to protect TBT and avoid forced reflow
-    if (typeof window === "undefined" || window.innerWidth <= 1024) return;
+    if (typeof window === "undefined") return;
 
     let cachedCenters = [];
     let cachedTotalDist = 0;
     let cachedStartY = 0;
     let rafId = null;
 
-    // Measure and cache layout values once to avoid continuous layout reads
+    const isMobile = window.innerWidth <= 768;
+
+    // Cache physical node positions for desktop only
     const measurePositions = () => {
+      if (window.innerWidth <= 768) return;
       if (!stationsWrapRef.current) return;
       const buttons = stationsWrapRef.current.querySelectorAll(".vrail-station-node");
       if (!buttons.length) return;
@@ -40,14 +42,36 @@ export default function LensScale() {
       cachedTotalDist = cachedCenters[cachedCenters.length - 1] - cachedStartY;
     };
 
-    const timer = setTimeout(measurePositions, 200);
+    const timer = setTimeout(measurePositions, 150);
 
     const handleUpdate = () => {
-      if (!cachedTotalDist) return;
-
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const scrollFraction = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+
+      // 1. MOBILE LOGIC (Direct 0-overhead math; no DOM reads)
+      if (window.innerWidth <= 768) {
+        const totalSegments = LENS_STATIONS.length - 1;
+        const rawIndex = scrollFraction * totalSegments;
+        const lowIndex = Math.min(Math.floor(rawIndex), totalSegments - 1);
+        const highIndex = Math.min(lowIndex + 1, totalSegments);
+        const segmentProgress = rawIndex - lowIndex;
+
+        const startMM = LENS_STATIONS[lowIndex].mm;
+        const endMM = LENS_STATIONS[highIndex].mm;
+        const calculatedMM = Math.round(startMM + (endMM - startMM) * segmentProgress);
+        const activeIdx = segmentProgress >= 0.5 ? highIndex : lowIndex;
+
+        setCurrentMM(calculatedMM);
+        setActiveStationId(LENS_STATIONS[activeIdx].id);
+        rafId = null;
+        return;
+      }
+
+      // 2. DESKTOP LOGIC (Physical reticle needle track travel)
+      if (!cachedTotalDist) {
+        measurePositions();
+      }
 
       const currentY = cachedStartY + cachedTotalDist * scrollFraction;
       setPlayheadY(currentY);
@@ -111,16 +135,19 @@ export default function LensScale() {
 
   return (
     <aside className="vrail-container" aria-label="Timeline and Lens Scale Navigation">
+      {/* Top Telemetry */}
       <div className="vrail-top-telemetry">
         <span className="vrail-bracket">┌</span>
         <span className="vrail-axis-label">FOCAL // CTI</span>
         <span className="vrail-bracket">┐</span>
       </div>
 
+      {/* Main Track Core */}
       <div className="vrail-track-core">
         <div className="vrail-axis-line"></div>
         <div className="vrail-tick-marks"></div>
 
+        {/* Desktop CTI Playhead */}
         <div
           className="vrail-playhead-reticle"
           style={{
@@ -138,6 +165,7 @@ export default function LensScale() {
           <div className="vrail-playhead-hairline"></div>
         </div>
 
+        {/* Focal Buttons */}
         <div className="vrail-stations-wrap" ref={stationsWrapRef}>
           {LENS_STATIONS.map((station) => {
             const isActive = activeStationId === station.id;
@@ -164,12 +192,14 @@ export default function LensScale() {
         </div>
       </div>
 
+      {/* Bottom Telemetry */}
       <div className="vrail-bottom-telemetry">
         <span className="vrail-bracket">└</span>
         <span className="vrail-mode-tag">NLE 9:16</span>
         <span className="vrail-bracket">┘</span>
       </div>
 
+      {/* Mobile Live Timecode Indicator */}
       <div className="vrail-mobile-tc-chip">
         <span className="vrail-rec-dot"></span>
         <span>{currentMM}MM</span>
