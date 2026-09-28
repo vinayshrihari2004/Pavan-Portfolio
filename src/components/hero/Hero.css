@@ -14,6 +14,7 @@
   box-sizing: border-box;
   overflow: clip;
   background-color: #010714;
+  isolation: isolate;
 }
 
 .hero-ambient-glow {
@@ -181,7 +182,7 @@
 }
 
 /* ==========================================================================
-   RIGHT COLUMN: SEAMLESS CREATOR COMPOSITION (ZERO HARD EDGES)
+   RIGHT COLUMN: CINEMATIC INTEGRATION (COLOR GRADED WITH NO BOXES)
    ========================================================================== */
 
 .hero-visual-col {
@@ -204,7 +205,7 @@
   overflow: visible;
 }
 
-/* 1. NATURAL CIRCULAR SKY GLOW (Completely zero edge boundaries) */
+/* 1. SOFT RADIAL SKY GLOW */
 .fx3-soft-radial-sky {
   position: absolute;
   top: -140px;
@@ -215,8 +216,8 @@
   border-radius: 50%;
   background: radial-gradient(
     circle at 50% 30%,
-    rgba(0, 212, 255, 0.32) 0%,
-    rgba(2, 27, 74, 0.22) 42%,
+    rgba(0, 212, 255, 0.28) 0%,
+    rgba(2, 27, 74, 0.20) 42%,
     rgba(1, 7, 20, 0.05) 70%,
     transparent 85%
   );
@@ -225,7 +226,7 @@
   z-index: 1;
 }
 
-/* 2. ELECTRIC CYAN CORONA (Outlining his neck, shoulders, and hair) */
+/* 2. ELECTRIC CYAN HALO BEHIND HEAD & SHOULDERS */
 .fx3-creator-cyan-halo {
   position: absolute;
   top: 70px;
@@ -238,14 +239,14 @@
     circle at 50% 40%,
     rgba(0, 212, 255, 0.65) 0%,
     rgba(0, 160, 255, 0.35) 40%,
-    rgba(1, 7, 20, 0) 70%
+    transparent 70%
   );
   filter: blur(36px);
   pointer-events: none;
   z-index: 2;
 }
 
-/* 3. PORTRAIT IMAGE MOUNT */
+/* 3. PORTRAIT CONTAINER */
 .fx3-portrait-mount {
   position: relative;
   z-index: 3;
@@ -256,7 +257,7 @@
   justify-content: center;
 }
 
-/* 4. THE GRADED CREATOR (Blends directly into the navy background) */
+/* 4. THE GRADED CREATOR (DESATURATED + NAVY MERGE) */
 .fx3-portrait-core {
   position: relative;
   display: block;
@@ -266,13 +267,13 @@
   object-fit: contain;
   object-position: bottom center;
 
-  /* Direct CSS Color-Grading (Converts warm skin/plaid into the cool teal/navy palette) */
+  /* Strips out the warm skin tones and aligns colors with the background */
   filter:
-    saturate(0.72)
-    contrast(1.18)
-    brightness(0.95)
-    hue-rotate(-8deg)
-    drop-shadow(0 0 22px rgba(0, 212, 255, 0.45))
+    saturate(0.52)
+    contrast(1.24)
+    brightness(0.92)
+    hue-rotate(-12deg)
+    drop-shadow(0 0 24px rgba(0, 212, 255, 0.48))
     drop-shadow(0 14px 45px rgba(0, 0, 0, 0.95));
   transform: translateZ(0);
 
@@ -280,20 +281,55 @@
   -webkit-mask-image: linear-gradient(
     180deg,
     #000000 0%,
-    #000000 46%,
-    rgba(0, 0, 0, 0.85) 60%,
-    rgba(0, 0, 0, 0.38) 74%,
-    rgba(0, 0, 0, 0.08) 88%,
+    #000000 44%,
+    rgba(0, 0, 0, 0.85) 58%,
+    rgba(0, 0, 0, 0.35) 72%,
+    rgba(0, 0, 0, 0.08) 86%,
     transparent 100%
   );
   mask-image: linear-gradient(
     180deg,
     #000000 0%,
-    #000000 46%,
-    rgba(0, 0, 0, 0.85) 60%,
-    rgba(0, 0, 0, 0.38) 74%,
-    rgba(0, 0, 0, 0.08) 88%,
+    #000000 44%,
+    rgba(0, 0, 0, 0.85) 58%,
+    rgba(0, 0, 0, 0.35) 72%,
+    rgba(0, 0, 0, 0.08) 86%,
     transparent 100%
+  );
+}
+
+/* 5. GRADED TINT OVERLAY: Casts blue/cyan onto the subject without hard edges */
+.fx3-graded-overlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 580px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  /* Dual-tone gradient: Soft cyan rim light on upper body, deep navy cast over lower shirt */
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 32%,
+    rgba(0, 212, 255, 0.28) 0%,
+    rgba(1, 14, 40, 0.52) 48%,
+    transparent 78%
+  );
+  mix-blend-mode: soft-light;
+
+  /* Feathered vertically so no box lines are formed */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    transparent 82%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    transparent 82%
   );
 }
 
@@ -406,7 +442,6 @@
   white-space: nowrap;
 }
 
-/* Precise card coordinates hugging silhouette */
 .hud-pos-viral {
   top: 75px;
   left: -12px;
@@ -457,7 +492,7 @@
 }
 
 /* ==========================================================================
-   TABLET & RESPONSIVE BREAKPOINTS
+   TABLET ADAPTATIONS (<= 1024px)
    ========================================================================== */
 
 @media (max-width: 1024px) {
@@ -509,23 +544,28 @@
   .hud-pos-kinetic { bottom: 40px; right: 0; }
 }
 
+/* ==========================================================================
+   HIGH-PERFORMANCE MOBILE MEDIA QUERY (<= 768px)
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .hero-section {
-    padding: 80px 4% 30px;
+    padding: 75px 4% 25px;
     min-height: auto;
   }
 
   .hero-ambient-glow {
-    width: 320px;
-    height: 320px;
-    filter: blur(50px);
+    width: 280px;
+    height: 280px;
+    filter: none !important;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%);
   }
 
   .hero-grid-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.8rem;
+    gap: 1.5rem;
     width: 100%;
   }
 
@@ -538,9 +578,9 @@
   .hero-main-title {
     align-items: center;
     text-align: center;
-    font-size: clamp(2rem, 7.8vw, 2.5rem);
+    font-size: clamp(1.9rem, 7.5vw, 2.4rem);
     line-height: 1.2;
-    gap: 6px;
+    gap: 4px;
   }
 
   .hero-title-top,
@@ -549,15 +589,15 @@
   }
 
   .hero-gradient-text {
-    font-size: 1.08em !important;
-    text-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+    font-size: 1.06em !important;
+    text-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
   }
 
   .hero-lead-text {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    line-height: 1.55;
     text-align: center;
-    max-width: 340px;
+    max-width: 330px;
     margin: 0 auto;
   }
 
@@ -569,7 +609,7 @@
 
   .hero-metrics-ribbon {
     width: 100%;
-    max-width: 360px;
+    max-width: 350px;
     justify-content: space-around;
     padding: 10px 8px;
     gap: 6px;
@@ -580,33 +620,42 @@
   }
 
   .fx3-cinema-stage {
-    max-width: 360px;
-    height: 460px;
-  }
-
-  .fx3-portrait-core {
-    max-height: 430px;
+    max-width: 340px;
+    height: 440px;
   }
 
   .fx3-soft-radial-sky {
-    width: 360px;
-    height: 340px;
-    top: -50px;
-    filter: blur(45px);
+    width: 320px;
+    height: 280px;
+    top: -30px;
+    filter: blur(25px);
   }
 
   .fx3-creator-cyan-halo {
-    width: 220px;
-    height: 250px;
+    width: 200px;
+    height: 220px;
     top: 30px;
-    filter: blur(24px);
+    filter: blur(18px);
+  }
+
+  .fx3-portrait-core {
+    max-height: 420px;
+    filter: saturate(0.55) contrast(1.2) brightness(0.92) hue-rotate(-12deg);
+  }
+
+  .fx3-graded-overlay {
+    display: none; /* Keeps mobile GPU light to maintain high PageSpeed score */
   }
 
   .fx3-hud-card {
-    padding: 5px 8px;
+    padding: 6px 9px;
     gap: 2px;
     border-radius: 6px;
+    background: #020C22 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     animation: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;
   }
 
   .hud-card-lead {
@@ -626,13 +675,13 @@
     font-size: 8px;
   }
 
-  .hud-pos-viral   { top: 25px;  left: 2px; }
-  .hud-pos-shorts  { top: 155px; left: -6px; }
-  .hud-pos-talking { bottom: 25px; left: 2px; }
+  .hud-pos-viral   { top: 20px;  left: 2px; }
+  .hud-pos-shorts  { top: 145px; left: -6px; }
+  .hud-pos-talking { bottom: 20px; left: 2px; }
 
-  .hud-pos-podcast { top: 45px;  right: 2px; }
-  .hud-pos-sound   { top: 175px; right: -6px; }
-  .hud-pos-kinetic { bottom: 35px; right: 2px; }
+  .hud-pos-podcast { top: 38px;  right: 2px; }
+  .hud-pos-sound   { top: 165px; right: -6px; }
+  .hud-pos-kinetic { bottom: 30px; right: 2px; }
 }
 
 @media (max-width: 380px) {

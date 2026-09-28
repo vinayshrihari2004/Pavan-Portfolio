@@ -51,28 +51,30 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: SEAMLESS NO-BOX CREATOR STAGE */}
+        {/* RIGHT COLUMN: GRADED CREATOR STAGE */}
         <div className="hero-visual-col">
           <div className="fx3-cinema-stage">
-            {/* 1. Seamless Circular Glows (Zero hard lines) */}
+            {/* Diffuse sky bloom behind creator */}
             <div className="fx3-soft-radial-sky" aria-hidden="true" />
             <div className="fx3-creator-cyan-halo" aria-hidden="true" />
 
-            {/* 2. Pure Image Mount (Graded entirely through CSS filter & gradient mask) */}
+            {/* Creator Mount with Internal LUT Color Grade */}
             <div className="fx3-portrait-mount">
               <img
                 src="/pawan.webp"
                 alt="Pawan Kumar // Cinema Editor & Motion Designer"
                 className="fx3-portrait-core"
-                width="560"
-                height="680"
+                width="640"
+                height="679"
                 fetchPriority="high"
                 decoding="async"
                 loading="eager"
               />
+              {/* Graded tint overlay: feathered so it never forms a visible rectangular box */}
+              <div className="fx3-graded-overlay" aria-hidden="true" />
             </div>
 
-            {/* 3. TIGHT SONY FX3 ORBIT HUD CARDS */}
+            {/* TIGHT SONY FX3 ORBIT HUD CARDS */}
             <div className="fx3-orbit-hud">
               {/* Left Flank */}
               <div className="fx3-hud-card hud-pos-viral">
