@@ -211,7 +211,7 @@ export default function EditSuite() {
     <section className="edit-suite" id="suite" ref={sectionRef}>
       <div className="es-header">
         <span className="es-header-tag">SELECTED WORKS</span>
-        <h2 className="es-title">Edit Suite</h2>
+        <h2 className="es-title">My Works</h2>
         <p className="es-description">
           A collection of high-performing reels, shorts and cinematic edits
           crafted for creators and brands.
@@ -226,7 +226,7 @@ export default function EditSuite() {
             <span className="dot-yellow"></span>
             <span className="dot-green"></span>
           </div>
-          <div className="es-filename">PAWAN_EDITS.PRPROJ</div>
+          <div className="es-filename">PAVAN_EDITS.PRPROJ</div>
         </div>
 
         {/* Workspace */}

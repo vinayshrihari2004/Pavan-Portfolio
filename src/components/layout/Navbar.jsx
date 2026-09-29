@@ -84,7 +84,7 @@ export default function Navbar() {
 
           <div className="telemetry-chip slots-chip">
             <span className="slot-dot"></span>
-            <span className="telemetry-val">2 SLOTS AVAILABLE</span>
+            <span className="telemetry-val">SLOTS AVAILABLE</span>
           </div>
         </div>
 
@@ -95,21 +95,21 @@ export default function Navbar() {
             className="fx3-nav-link"
             onClick={() => scrollToSection("cases")}
           >
-            CASES
+            ANALYSIS
           </button>
           <button
             type="button"
             className="fx3-nav-link"
             onClick={() => scrollToSection("suite")}
           >
-            SUITE
+            MY WORKS
           </button>
           <button
             type="button"
             className="fx3-nav-link"
             onClick={() => scrollToSection("about")}
           >
-            FX3 MONITOR
+            ABOUT ME
           </button>
 
           <button

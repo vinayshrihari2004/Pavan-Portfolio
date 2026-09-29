@@ -16,13 +16,18 @@ export default function EditorCTA() {
 
         {/* Main Headline */}
         <h2 className="cta-main-title">
-          Ready to scale your <span>Reels & Shorts?</span>
+          What are you <span>waiting for?</span>
         </h2>
 
-        {/* Short & Punchy Subtitle */}
-        <p className="cta-sub-copy">
-          Let’s review your retention drop-offs, pacing, and hooks. Book a quick 15-minute alignment call to see if we’re a fit.
-        </p>
+        {/* Narrative Copy */}
+        <div className="cta-story-block">
+          <p className="cta-story-lead">
+            You've seen the work. You know what's possible.
+          </p>
+          <p className="cta-story-question">
+            The only question is: are you ready to take action? <span className="cta-finger-down">👇</span>
+          </p>
+        </div>
 
         {/* Direct Calendly Action */}
         <div className="cta-action-wrap">

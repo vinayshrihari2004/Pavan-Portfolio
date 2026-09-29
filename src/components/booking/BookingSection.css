@@ -6,12 +6,13 @@
 .fx3-booking-section {
   position: relative;
   width: 100%;
-  padding: 90px 4% 80px;
+  padding: 95px 4% 85px;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Atmospheric Ambient Backlight */
@@ -20,8 +21,8 @@
   top: 40%;
   left: 50%;
   transform: translate3d(-50%, -40%, 0);
-  width: 580px;
-  height: 580px;
+  width: 620px;
+  height: 620px;
   background: radial-gradient(
     circle,
     rgba(0, 212, 255, 0.14) 0%,
@@ -36,18 +37,129 @@
 .fx3-booking-container {
   position: relative;
   width: 100%;
-  max-width: 860px; /* Proportionally sized to fit the 700px calendar without dead space */
+  max-width: 860px;
   margin: 0 auto;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Hardware Terminal Box */
+/* =========================================================
+   1. NARRATIVE CALLOUT HEADER
+   ========================================================= */
+
+.booking-narrative-header {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+  margin-bottom: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.booking-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.pulsing-indicator {
+  width: 7px;
+  height: 7px;
+  background: #00d4ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00d4ff;
+  animation: bookingPulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes bookingPulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+.booking-status-pill span:last-child {
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #00d4ff;
+  text-transform: uppercase;
+}
+
+.booking-main-title {
+  font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px 0;
+}
+
+.booking-main-title span {
+  color: #00d4ff;
+  text-shadow: 0 0 24px rgba(0, 212, 255, 0.45);
+}
+
+.booking-copy-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 540px;
+}
+
+.booking-lead-line {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.booking-action-prompt {
+  color: #94a9c9;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cta-down-arrow {
+  display: inline-block;
+  animation: bookingBounceDown 2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes bookingBounceDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* =========================================================
+   2. HARDWARE TERMINAL CHASSIS
+   ========================================================= */
+
 .fx3-booking-terminal {
   position: relative;
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
-  background: #020024; /* Seamless color match to Calendly background_color */
+  background: #020024;
   border: 1px solid rgba(0, 212, 255, 0.32);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9),
               0 0 35px rgba(0, 212, 255, 0.12);
@@ -55,7 +167,6 @@
   flex-direction: column;
 }
 
-/* Top Telemetry Chassis Bar */
 .terminal-topbar {
   display: flex;
   align-items: center;
@@ -88,7 +199,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: monospace;
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 .osd-chip {
@@ -120,7 +231,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: monospace;
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
   font-size: 9.5px;
   font-weight: 800;
   color: #00d4ff;
@@ -133,15 +244,13 @@
   border-radius: 50%;
   background: #00d4ff;
   box-shadow: 0 0 6px #00d4ff;
-  animation: bookingDotPulse 2s infinite ease-in-out;
+  animation: bookingPulseGlow 2s infinite ease-in-out;
 }
 
-@keyframes bookingDotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
+/* =========================================================
+   3. EMBED VIEWPORT & FOOTER
+   ========================================================= */
 
-/* Embed Viewport Container */
 .terminal-embed-col {
   position: relative;
   width: 100%;
@@ -153,14 +262,12 @@
   justify-content: center;
 }
 
-/* Ensure the Calendly iframe expands cleanly */
 .terminal-embed-col .calendly-inline-widget {
   width: 100% !important;
   height: 700px !important;
   border: none !important;
 }
 
-/* Bottom Hardware Telemetry Strip */
 .terminal-footer-strip {
   display: flex;
   align-items: center;
@@ -169,19 +276,31 @@
   padding: 8px 16px;
   background: rgba(1, 7, 20, 0.98);
   border-top: 1px solid rgba(0, 212, 255, 0.18);
-  font-family: monospace;
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
   font-size: 8.5px;
   letter-spacing: 1.2px;
   color: #728cb8;
 }
 
 /* =========================================================
-   RESPONSIVE (Mobile & Medium Screens)
+   4. RESPONSIVE DESIGN
    ========================================================= */
 
 @media (max-width: 768px) {
   .fx3-booking-section {
-    padding: 70px 3% 50px;
+    padding: 70px 4% 55px;
+  }
+
+  .booking-main-title {
+    font-size: 2rem;
+  }
+
+  .booking-lead-line {
+    font-size: 1rem;
+  }
+
+  .booking-action-prompt {
+    font-size: 0.95rem;
   }
 
   .terminal-topbar {

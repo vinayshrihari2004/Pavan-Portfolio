@@ -81,12 +81,12 @@
 
 /* 2. Headline */
 .cta-main-title {
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   font-weight: 900;
   line-height: 1.1;
   color: #ffffff;
   letter-spacing: -0.8px;
-  margin: 0 0 16px 0;
+  margin: 0 0 20px 0;
 }
 
 .cta-main-title span {
@@ -94,13 +94,43 @@
   text-shadow: 0 0 24px rgba(0, 212, 255, 0.5);
 }
 
-/* 3. Subtitle */
-.cta-sub-copy {
+/* 3. Narrative Copy Block */
+.cta-story-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto 36px;
+  max-width: 540px;
+}
+
+.cta-story-lead {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cta-story-question {
   color: #94a9c9;
-  font-size: 14px;
+  font-size: 1.05rem;
   line-height: 1.6;
-  margin: 0 auto 34px;
-  max-width: 520px;
+  margin: 0;
+}
+
+.cta-finger-down {
+  display: inline-block;
+  animation: bounceDown 2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes bounceDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 /* 4. Action Block */
@@ -116,7 +146,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 15px 34px;
+  padding: 16px 36px;
   background: #00d4ff;
   color: #010714;
   font-family: monospace;
@@ -125,7 +155,7 @@
   letter-spacing: 1.5px;
   text-decoration: none;
   text-transform: uppercase;
-  border-radius: 3px;
+  border-radius: 4px;
   box-shadow: 0 0 25px rgba(0, 212, 255, 0.45);
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
   user-select: none;
@@ -167,11 +197,15 @@
   }
 
   .cta-main-title {
-    font-size: 1.95rem;
+    font-size: 2rem;
   }
 
-  .cta-sub-copy {
-    font-size: 13px;
+  .cta-story-lead {
+    font-size: 1rem;
+  }
+
+  .cta-story-question {
+    font-size: 0.95rem;
   }
 
   .cta-calendly-btn {

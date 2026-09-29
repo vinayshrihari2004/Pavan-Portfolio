@@ -124,7 +124,7 @@ export default function Testimonials() {
       <div className="t-section-header">
         <span className="t-pre-tag">// VERIFIED EDITORIAL FEEDBACK</span>
         <h2 className="t-title">
-          Client <span>Endorsements</span>
+          Client <span>Testimonials</span>
         </h2>
         <div className="t-status-row">
           <span className="t-live-pulse"></span>

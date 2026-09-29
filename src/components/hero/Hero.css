@@ -1,6 +1,6 @@
 /* ==========================================================================
-   HERO SECTION // SONY FX3 CINEMA RIG
-   Theme: Electric Cyan (#00D4FF) to Deep Studio Navy (#010714)
+   HERO SECTION // SONY FX3 CINEMATIC COMMERCIAL STAGE
+   Theme: Studio Cobalt (#082e66) to Deep Pitch Navy (#010817)
    ========================================================================== */
 
 .hero-section {
@@ -10,64 +10,62 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 110px 5% 60px;
+  padding: 105px 5% 0 6%;
   box-sizing: border-box;
   overflow: clip;
-  background-color: #010714;
-  isolation: isolate;
-}
 
-.hero-ambient-glow {
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate3d(-50%, -15%, 0);
-  width: 750px;
-  height: 750px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 212, 255, 0.08) 0%,
-    rgba(2, 13, 36, 0.03) 50%,
-    transparent 75%
-  );
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
+  /*
+   * Complete Studio Environment rendered seamlessly on the canvas:
+   * 1. Multi-stop radial glow centered at 72% 48% (behind creator)
+   * 2. Pure smooth fade into #010817 everywhere else with zero clipped edges
+   */
+  background:
+    radial-gradient(
+      ellipse 950px 700px at 72% 48%,
+      #082e66 0%,
+      #051c44 32%,
+      #02102a 62%,
+      #010817 100%
+    );
+  isolation: isolate;
 }
 
 .hero-grid-container {
   position: relative;
   width: 100%;
-  max-width: 1380px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: 2.5rem;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: end;
+  gap: 2rem;
   z-index: 2;
 }
 
 /* ==========================================================================
-   LEFT COLUMN: CONTENT & METRICS
+   LEFT COLUMN: HEADLINE, CTAs & METRICS
    ========================================================================== */
 
 .hero-content-col {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 1.35rem;
   width: 100%;
+  max-width: 700px;
+  align-self: center;
+  padding-bottom: 55px;
 }
 
 .hero-telemetry-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: rgba(1, 7, 20, 0.85);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 5px 13px;
+  background: rgba(2, 14, 38, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   border-radius: 999px;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.12);
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.15);
 }
 
 .telemetry-dot {
@@ -85,55 +83,44 @@
 }
 
 .telemetry-label {
-  font-family: monospace;
-  font-size: 0.75rem;
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   color: #00d4ff;
 }
 
-/* 3-TIER HEADLINE HIERARCHY */
 .hero-main-title {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
-  font-size: clamp(2.4rem, 4.4vw, 4.6rem);
-  line-height: 1.14;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: #ffffff;
   margin: 0;
-  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  font-size: clamp(2.6rem, 3.9vw, 3.9rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #ffffff;
 }
 
-.hero-title-top {
+.hero-title-top,
+.hero-title-bottom {
   display: block;
   color: #ffffff;
 }
 
 .hero-gradient-text {
   display: block;
-  font-size: 1.06em;
-  font-weight: 950;
-  background: linear-gradient(90deg, #00d4ff 0%, #3dbdff 50%, #8be9ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 35px rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+  text-shadow: 0 0 32px rgba(0, 212, 255, 0.5);
   letter-spacing: -0.02em;
 }
 
-.hero-title-bottom {
-  display: block;
-  color: #ffffff;
-}
-
 .hero-lead-text {
-  max-width: 520px;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
+  max-width: 480px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(200, 215, 235, 0.72);
   margin: 0;
 }
 
@@ -144,45 +131,41 @@
 .hero-metrics-ribbon {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 12px 18px;
-  background: rgba(1, 7, 20, 0.75);
-  border: 1px solid rgba(0, 212, 255, 0.2);
-  border-radius: 6px;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+  gap: 16px;
   margin-top: 0.4rem;
 }
 
 .metric-chip {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2px;
 }
 
 .metric-val {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
 }
 
 .metric-lbl {
-  font-family: monospace;
-  font-size: 12px;
+  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   color: #00d4ff;
 }
 
 .metric-sep {
-  font-family: monospace;
-  font-size: 14px;
-  color: rgba(0, 212, 255, 0.3);
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 1.15rem;
+  font-weight: 300;
 }
 
 /* ==========================================================================
-   RIGHT COLUMN: CINEMATIC INTEGRATION (COLOR GRADED WITH NO BOXES)
+   RIGHT COLUMN: CREATOR STAGE WITH SEAMLESS BLENDING
    ========================================================================== */
 
 .hero-visual-col {
@@ -190,63 +173,42 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  align-self: end;
   user-select: none;
 }
 
 .fx3-cinema-stage {
   position: relative;
   width: 100%;
-  max-width: 620px;
-  height: 680px;
+  max-width: 640px;
+  height: min(720px, 88vh);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  overflow: visible;
 }
 
-/* 1. SOFT RADIAL SKY GLOW */
-.fx3-soft-radial-sky {
-  position: absolute;
-  top: -140px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 720px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 30%,
-    rgba(0, 212, 255, 0.28) 0%,
-    rgba(2, 27, 74, 0.20) 42%,
-    rgba(1, 7, 20, 0.05) 70%,
-    transparent 85%
-  );
-  filter: blur(75px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* 2. ELECTRIC CYAN HALO BEHIND HEAD & SHOULDERS */
+/* Soft circular rim aura behind head/neck with complete falloff to 0 */
 .fx3-creator-cyan-halo {
   position: absolute;
-  top: 70px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
-  width: 360px;
-  height: 400px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
   background: radial-gradient(
-    circle at 50% 40%,
-    rgba(0, 212, 255, 0.65) 0%,
-    rgba(0, 160, 255, 0.35) 40%,
-    transparent 70%
+    circle at center,
+    rgba(0, 212, 255, 0.6) 0%,
+    rgba(0, 130, 240, 0.22) 42%,
+    rgba(1, 8, 23, 0) 70%
   );
-  filter: blur(36px);
+  filter: blur(28px);
   pointer-events: none;
   z-index: 2;
 }
 
-/* 3. PORTRAIT CONTAINER */
+/* Portrait Mount */
 .fx3-portrait-mount {
   position: relative;
   z-index: 3;
@@ -257,84 +219,48 @@
   justify-content: center;
 }
 
-/* 4. THE GRADED CREATOR (DESATURATED + NAVY MERGE) */
+/* The Subject: Sony FX3 Color Grade + Smooth Torso Dissolve */
 .fx3-portrait-core {
   position: relative;
   display: block;
   width: auto;
-  max-height: 660px;
+  max-height: 100%;
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
+  opacity: 0.78;
 
-  /* Strips out the warm skin tones and aligns colors with the background */
   filter:
-    saturate(0.52)
+    brightness(0.91)
     contrast(1.24)
-    brightness(0.92)
-    hue-rotate(-12deg)
-    drop-shadow(0 0 24px rgba(0, 212, 255, 0.48))
-    drop-shadow(0 14px 45px rgba(0, 0, 0, 0.95));
-  transform: translateZ(0);
+    saturate(0.74)
+    hue-rotate(-7deg)
+    drop-shadow(0 0 16px rgba(0, 212, 255, 0.45))
+    drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95));
 
-  /* Continuous 6-stop mask that dissolves arms and torso directly into #010714 */
+  /* Feathering that dissolves the waist/torso directly into the background */
   -webkit-mask-image: linear-gradient(
     180deg,
     #000000 0%,
-    #000000 44%,
-    rgba(0, 0, 0, 0.85) 58%,
-    rgba(0, 0, 0, 0.35) 72%,
-    rgba(0, 0, 0, 0.08) 86%,
+    #000000 46%,
+    rgba(0, 0, 0, 0.92) 58%,
+    rgba(0, 0, 0, 0.55) 72%,
+    rgba(0, 0, 0, 0.15) 86%,
     transparent 100%
   );
   mask-image: linear-gradient(
     180deg,
     #000000 0%,
-    #000000 44%,
-    rgba(0, 0, 0, 0.85) 58%,
-    rgba(0, 0, 0, 0.35) 72%,
-    rgba(0, 0, 0, 0.08) 86%,
+    #000000 46%,
+    rgba(0, 0, 0, 0.92) 58%,
+    rgba(0, 0, 0, 0.55) 72%,
+    rgba(0, 0, 0, 0.15) 86%,
     transparent 100%
-  );
-}
-
-/* 5. GRADED TINT OVERLAY: Casts blue/cyan onto the subject without hard edges */
-.fx3-graded-overlay {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 580px;
-  height: 100%;
-  pointer-events: none;
-  z-index: 4;
-  /* Dual-tone gradient: Soft cyan rim light on upper body, deep navy cast over lower shirt */
-  background: radial-gradient(
-    ellipse 65% 55% at 50% 32%,
-    rgba(0, 212, 255, 0.28) 0%,
-    rgba(1, 14, 40, 0.52) 48%,
-    transparent 78%
-  );
-  mix-blend-mode: soft-light;
-
-  /* Feathered vertically so no box lines are formed */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.85) 55%,
-    transparent 82%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.85) 55%,
-    transparent 82%
   );
 }
 
 /* ==========================================================================
-   TIGHT SONY FX3 ORBIT HUD CARDS
+   HUD FEATURE CARDS
    ========================================================================== */
 
 .fx3-orbit-hud {
@@ -348,57 +274,28 @@
   position: absolute;
   pointer-events: auto;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 14px 9px 12px;
-  background: linear-gradient(135deg, rgba(2, 12, 34, 0.94) 0%, rgba(1, 7, 20, 0.98) 100%);
-  border: 1px solid rgba(0, 212, 255, 0.38);
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: rgba(1, 15, 42, 0.88);
+  border: 1px solid rgba(0, 212, 255, 0.34);
   border-radius: 8px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.85),
-    0 0 16px rgba(0, 212, 255, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.75),
+    0 0 14px rgba(0, 212, 255, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
 }
 
 .fx3-hud-card:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-color: #00D4FF;
+  transform: translateY(-2px) scale(1.02);
+  border-color: #00d4ff;
   box-shadow:
-    0 14px 35px rgba(0, 0, 0, 0.95),
-    0 0 24px rgba(0, 212, 255, 0.32);
-}
-
-.hud-card-lead {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  line-height: 1;
-}
-
-.hud-status-led {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #00D4FF;
-  box-shadow: 0 0 6px #00D4FF;
-}
-
-.hud-chip-tag {
-  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: rgba(0, 212, 255, 0.65);
-}
-
-.hud-card-body {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    0 12px 30px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(0, 212, 255, 0.35);
 }
 
 .hud-icon {
@@ -413,7 +310,7 @@
 .hud-icon svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.5));
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6));
 }
 
 .hud-text-stack {
@@ -424,75 +321,55 @@
 
 .hud-title {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.4px;
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: 1.1;
-  white-space: nowrap;
 }
 
 .hud-sub {
   font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  color: #00D4FF;
+  color: #00d4ff;
   line-height: 1;
-  white-space: nowrap;
 }
 
-.hud-pos-viral {
-  top: 75px;
-  left: -12px;
-  animation: fx3FloatA 6s ease-in-out infinite;
+/* Card positions framing the subject */
+.card-viral {
+  top: 40px;
+  left: -30px;
 }
 
-.hud-pos-shorts {
-  top: 240px;
-  left: -28px;
-  animation: fx3FloatB 7.5s ease-in-out infinite;
+.card-shorts {
+  top: 230px;
+  left: -60px;
 }
 
-.hud-pos-talking {
-  bottom: 85px;
-  left: -8px;
-  animation: fx3FloatC 8s ease-in-out infinite;
+.card-talking {
+  bottom: 90px;
+  left: -40px;
 }
 
-.hud-pos-podcast {
-  top: 95px;
-  right: -12px;
-  animation: fx3FloatB 7s ease-in-out infinite;
+.card-podcast {
+  top: 90px;
+  right: 0;
 }
 
-.hud-pos-sound {
-  top: 260px;
-  right: -28px;
-  animation: fx3FloatA 8s ease-in-out infinite;
+.card-sound {
+  top: 250px;
+  right: -10px;
 }
 
-.hud-pos-kinetic {
+.card-kinetic {
   bottom: 75px;
-  right: -8px;
-  animation: fx3FloatC 6.5s ease-in-out infinite;
-}
-
-@keyframes fx3FloatA {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-5px); }
-}
-@keyframes fx3FloatB {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(5px); }
-}
-@keyframes fx3FloatC {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4px); }
+  right: 0;
 }
 
 /* ==========================================================================
-   TABLET ADAPTATIONS (<= 1024px)
+   RESPONSIVE DESIGN (TABLET & MOBILE)
    ========================================================================== */
 
 @media (max-width: 1024px) {
@@ -508,6 +385,13 @@
 
   .hero-content-col {
     align-items: center;
+    max-width: 100%;
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .hero-main-title {
+    align-items: center;
   }
 
   .hero-metrics-ribbon {
@@ -515,50 +399,27 @@
   }
 
   .fx3-cinema-stage {
-    max-width: 500px;
-    height: 560px;
+    max-width: 460px;
+    height: 500px;
   }
 
   .fx3-portrait-core {
-    max-height: 540px;
+    max-height: 100%;
   }
 
-  .fx3-soft-radial-sky {
-    width: 560px;
-    height: 480px;
-    top: -100px;
-  }
+  .card-viral   { top: 35px; left: 0; }
+  .card-shorts  { top: 175px; left: -10px; }
+  .card-talking { bottom: 35px; left: 0; }
 
-  .fx3-creator-cyan-halo {
-    width: 290px;
-    height: 330px;
-    top: 50px;
-  }
-
-  .hud-pos-viral   { top: 40px;  left: 0; }
-  .hud-pos-shorts  { top: 190px; left: -14px; }
-  .hud-pos-talking { bottom: 50px; left: 0; }
-
-  .hud-pos-podcast { top: 60px;  right: 0; }
-  .hud-pos-sound   { top: 210px; right: -14px; }
-  .hud-pos-kinetic { bottom: 40px; right: 0; }
+  .card-podcast { top: 55px; right: 0; }
+  .card-sound   { top: 195px; right: -10px; }
+  .card-kinetic { bottom: 35px; right: 0; }
 }
-
-/* ==========================================================================
-   HIGH-PERFORMANCE MOBILE MEDIA QUERY (<= 768px)
-   ========================================================================== */
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 75px 4% 25px;
+    padding: 75px 4% 0;
     min-height: auto;
-  }
-
-  .hero-ambient-glow {
-    width: 280px;
-    height: 280px;
-    filter: none !important;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%);
   }
 
   .hero-grid-container {
@@ -566,141 +427,47 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    width: 100%;
-  }
-
-  .hero-content-col {
-    align-items: center;
-    text-align: center;
-    width: 100%;
   }
 
   .hero-main-title {
-    align-items: center;
+    font-size: clamp(2rem, 8vw, 2.6rem);
     text-align: center;
-    font-size: clamp(1.9rem, 7.5vw, 2.4rem);
-    line-height: 1.2;
-    gap: 4px;
-  }
-
-  .hero-title-top,
-  .hero-title-bottom {
-    font-size: 1em;
-  }
-
-  .hero-gradient-text {
-    font-size: 1.06em !important;
-    text-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
   }
 
   .hero-lead-text {
     font-size: 0.92rem;
-    line-height: 1.55;
     text-align: center;
-    max-width: 330px;
-    margin: 0 auto;
   }
 
   .hero-action-dock {
-    width: 100%;
     display: flex;
     justify-content: center;
   }
 
   .hero-metrics-ribbon {
     width: 100%;
-    max-width: 350px;
+    max-width: 340px;
     justify-content: space-around;
-    padding: 10px 8px;
-    gap: 6px;
-  }
-
-  .metric-val {
-    font-size: 1.15rem;
   }
 
   .fx3-cinema-stage {
-    max-width: 340px;
-    height: 440px;
-  }
-
-  .fx3-soft-radial-sky {
-    width: 320px;
-    height: 280px;
-    top: -30px;
-    filter: blur(25px);
-  }
-
-  .fx3-creator-cyan-halo {
-    width: 200px;
-    height: 220px;
-    top: 30px;
-    filter: blur(18px);
+    max-width: 330px;
+    height: 390px;
   }
 
   .fx3-portrait-core {
-    max-height: 420px;
-    filter: saturate(0.55) contrast(1.2) brightness(0.92) hue-rotate(-12deg);
-  }
-
-  .fx3-graded-overlay {
-    display: none; /* Keeps mobile GPU light to maintain high PageSpeed score */
+    max-height: 100%;
   }
 
   .fx3-hud-card {
-    padding: 6px 9px;
-    gap: 2px;
+    padding: 5px 8px;
+    gap: 6px;
     border-radius: 6px;
-    background: #020C22 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    animation: none !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;
-  }
-
-  .hud-card-lead {
-    display: none;
   }
 
   .hud-icon {
     width: 14px;
     height: 14px;
-  }
-
-  .hud-title {
-    font-size: 9.5px;
-  }
-
-  .hud-sub {
-    font-size: 8px;
-  }
-
-  .hud-pos-viral   { top: 20px;  left: 2px; }
-  .hud-pos-shorts  { top: 145px; left: -6px; }
-  .hud-pos-talking { bottom: 20px; left: 2px; }
-
-  .hud-pos-podcast { top: 38px;  right: 2px; }
-  .hud-pos-sound   { top: 165px; right: -6px; }
-  .hud-pos-kinetic { bottom: 30px; right: 2px; }
-}
-
-@media (max-width: 380px) {
-  .hero-main-title {
-    font-size: 1.85rem;
-  }
-
-  .fx3-cinema-stage {
-    max-width: 310px;
-    height: 400px;
-  }
-
-  .fx3-portrait-core {
-    max-height: 340px;
-  }
-
-  .fx3-hud-card {
-    padding: 4px 7px;
-    gap: 4px;
   }
 
   .hud-title {
@@ -710,4 +477,12 @@
   .hud-sub {
     font-size: 7.5px;
   }
+
+  .card-viral   { top: 10px; left: 2px; }
+  .card-shorts  { top: 130px; left: -6px; }
+  .card-talking { bottom: 10px; left: 2px; }
+
+  .card-podcast { top: 30px; right: 2px; }
+  .card-sound   { top: 150px; right: -6px; }
+  .card-kinetic { bottom: 15px; right: 2px; }
 }

@@ -35,6 +35,28 @@ export default function BookingSection() {
       <div className="fx3-booking-glow" aria-hidden="true"></div>
 
       <div className="fx3-booking-container">
+        {/* Narrative Callout Block */}
+        <div className="booking-narrative-header">
+          <div className="booking-status-pill">
+            <span className="pulsing-indicator"></span>
+            <span>CURRENTLY ACCEPTING CREATORS</span>
+          </div>
+
+          <h2 className="booking-main-title">
+            What are you <span>waiting for?</span>
+          </h2>
+
+          <div className="booking-copy-stack">
+            <p className="booking-lead-line">
+              You've seen the work. You know what's possible.
+            </p>
+            <p className="booking-action-prompt">
+              The only question is: are you ready to take action? <span className="cta-down-arrow"></span>
+            </p>
+          </div>
+        </div>
+
+        {/* Hardware Terminal Box with Calendly Widget */}
         <div className="fx3-booking-terminal">
           {/* Top Chassis Bar */}
           <div className="terminal-topbar">
@@ -52,7 +74,7 @@ export default function BookingSection() {
 
             <div className="terminal-status-tag">
               <span className="live-status-dot"></span>
-              <span>2 SLOTS OPEN</span>
+              <span>SLOTS OPEN</span>
             </div>
           </div>
 

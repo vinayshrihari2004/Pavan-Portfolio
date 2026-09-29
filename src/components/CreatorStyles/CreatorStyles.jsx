@@ -78,7 +78,7 @@ export default function CreatorStyles() {
       <div className="cs-container">
         <div className="cs-header">
           <span className="cs-eyebrow">// EDITORIAL REPERTOIRE</span>
-          <h2 className="cs-title">Selected Works</h2>
+          <h2 className="cs-title">My Styles</h2>
         </div>
 
         <div className="cs-grid-3col">
