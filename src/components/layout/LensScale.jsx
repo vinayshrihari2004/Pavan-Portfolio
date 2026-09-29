@@ -26,9 +26,6 @@ export default function LensScale() {
     let cachedStartY = 0;
     let rafId = null;
 
-    const isMobile = window.innerWidth <= 768;
-
-    // Cache physical node positions for desktop only
     const measurePositions = () => {
       if (window.innerWidth <= 768) return;
       if (!stationsWrapRef.current) return;
@@ -42,14 +39,23 @@ export default function LensScale() {
       cachedTotalDist = cachedCenters[cachedCenters.length - 1] - cachedStartY;
     };
 
-    const timer = setTimeout(measurePositions, 150);
+    const timer = setTimeout(measurePositions, 200);
 
     const handleUpdate = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollFraction = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight = window.innerHeight;
+      const maxScroll = docHeight - winHeight;
 
-      // 1. MOBILE LOGIC (Direct 0-overhead math; no DOM reads)
+      // Guard: if page is still measuring or height collapsed, do not recalculate
+      if (maxScroll <= 0) {
+        rafId = null;
+        return;
+      }
+
+      const scrollFraction = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+      // 1. MOBILE LOGIC (Clean mathematical mapping; no layout reads)
       if (window.innerWidth <= 768) {
         const totalSegments = LENS_STATIONS.length - 1;
         const rawIndex = scrollFraction * totalSegments;
@@ -68,42 +74,44 @@ export default function LensScale() {
         return;
       }
 
-      // 2. DESKTOP LOGIC (Physical reticle needle track travel)
+      // 2. DESKTOP LOGIC
       if (!cachedTotalDist) {
         measurePositions();
       }
 
-      const currentY = cachedStartY + cachedTotalDist * scrollFraction;
-      setPlayheadY(currentY);
+      if (cachedTotalDist > 0 && cachedCenters.length) {
+        const currentY = cachedStartY + cachedTotalDist * scrollFraction;
+        setPlayheadY(currentY);
 
-      let calculatedMM = LENS_STATIONS[0].mm;
-      let activeIndex = 0;
+        let calculatedMM = LENS_STATIONS[0].mm;
+        let activeIndex = 0;
 
-      if (currentY <= cachedCenters[0]) {
-        calculatedMM = LENS_STATIONS[0].mm;
-        activeIndex = 0;
-      } else if (currentY >= cachedCenters[cachedCenters.length - 1]) {
-        calculatedMM = LENS_STATIONS[LENS_STATIONS.length - 1].mm;
-        activeIndex = LENS_STATIONS.length - 1;
-      } else {
-        for (let i = 0; i < cachedCenters.length - 1; i++) {
-          const segStartY = cachedCenters[i];
-          const segEndY = cachedCenters[i + 1];
+        if (currentY <= cachedCenters[0]) {
+          calculatedMM = LENS_STATIONS[0].mm;
+          activeIndex = 0;
+        } else if (currentY >= cachedCenters[cachedCenters.length - 1]) {
+          calculatedMM = LENS_STATIONS[LENS_STATIONS.length - 1].mm;
+          activeIndex = LENS_STATIONS.length - 1;
+        } else {
+          for (let i = 0; i < cachedCenters.length - 1; i++) {
+            const segStartY = cachedCenters[i];
+            const segEndY = cachedCenters[i + 1];
 
-          if (currentY >= segStartY && currentY <= segEndY) {
-            const segFraction = (currentY - segStartY) / (segEndY - segStartY);
-            const segStartMM = LENS_STATIONS[i].mm;
-            const segEndMM = LENS_STATIONS[i + 1].mm;
-
-            calculatedMM = Math.round(segStartMM + (segEndMM - segStartMM) * segFraction);
-            activeIndex = segFraction >= 0.5 ? i + 1 : i;
-            break;
+            if (currentY >= segStartY && currentY <= segEndY) {
+              const segFraction = (currentY - segStartY) / (segEndY - segStartY);
+              calculatedMM = Math.round(
+                LENS_STATIONS[i].mm + (LENS_STATIONS[i + 1].mm - LENS_STATIONS[i].mm) * segFraction
+              );
+              activeIndex = segFraction >= 0.5 ? i + 1 : i;
+              break;
+            }
           }
         }
+
+        setCurrentMM(calculatedMM);
+        setActiveStationId(LENS_STATIONS[activeIndex].id);
       }
 
-      setCurrentMM(calculatedMM);
-      setActiveStationId(LENS_STATIONS[activeIndex].id);
       rafId = null;
     };
 
@@ -126,7 +134,8 @@ export default function LensScale() {
     };
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -135,19 +144,16 @@ export default function LensScale() {
 
   return (
     <aside className="vrail-container" aria-label="Timeline and Lens Scale Navigation">
-      {/* Top Telemetry */}
       <div className="vrail-top-telemetry">
         <span className="vrail-bracket">┌</span>
         <span className="vrail-axis-label">FOCAL // CTI</span>
         <span className="vrail-bracket">┐</span>
       </div>
 
-      {/* Main Track Core */}
       <div className="vrail-track-core">
         <div className="vrail-axis-line"></div>
         <div className="vrail-tick-marks"></div>
 
-        {/* Desktop CTI Playhead */}
         <div
           className="vrail-playhead-reticle"
           style={{
@@ -165,7 +171,6 @@ export default function LensScale() {
           <div className="vrail-playhead-hairline"></div>
         </div>
 
-        {/* Focal Buttons */}
         <div className="vrail-stations-wrap" ref={stationsWrapRef}>
           {LENS_STATIONS.map((station) => {
             const isActive = activeStationId === station.id;
@@ -174,7 +179,7 @@ export default function LensScale() {
                 key={station.id}
                 type="button"
                 className={`vrail-station-node ${isActive ? "vrail-active" : ""}`}
-                onClick={() => scrollToSection(station.id)}
+                onClick={(e) => scrollToSection(e, station.id)}
               >
                 <div className="vrail-station-tick"></div>
                 <div className="vrail-station-number-box">
@@ -192,14 +197,12 @@ export default function LensScale() {
         </div>
       </div>
 
-      {/* Bottom Telemetry */}
       <div className="vrail-bottom-telemetry">
         <span className="vrail-bracket">└</span>
         <span className="vrail-mode-tag">NLE 9:16</span>
         <span className="vrail-bracket">┘</span>
       </div>
 
-      {/* Mobile Live Timecode Indicator */}
       <div className="vrail-mobile-tc-chip">
         <span className="vrail-rec-dot"></span>
         <span>{currentMM}MM</span>
