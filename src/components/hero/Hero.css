@@ -162,7 +162,7 @@
 }
 
 /* ==========================================================================
-   RIGHT COLUMN: CREATOR STAGE WITH SEAMLESS BLENDING
+   RIGHT COLUMN: CREATOR STAGE WITH SEAMLESS BLENDING & HOVER INTERACTIONS
    ========================================================================== */
 
 .hero-visual-col {
@@ -202,6 +202,9 @@
   filter: blur(28px);
   pointer-events: none;
   z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 0.4s ease,
+              opacity 0.4s ease;
 }
 
 /* Portrait Mount */
@@ -213,6 +216,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  cursor: pointer;
 }
 
 /* The Subject: Sony FX3 Color Grade + Smooth Torso Dissolve */
@@ -225,6 +229,7 @@
   object-fit: contain;
   object-position: bottom center;
   opacity: 0.85;
+  transform-origin: bottom center;
 
   filter:
     brightness(0.91)
@@ -252,6 +257,29 @@
     rgba(0, 0, 0, 0.15) 86%,
     transparent 100%
   );
+
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 0.4s ease,
+              opacity 0.4s ease;
+}
+
+/* --- CREATOR PORTRAIT HOVER STATE --- */
+.fx3-portrait-mount:hover .fx3-portrait-core {
+  transform: scale(1.025) translateY(-3px);
+  opacity: 1;
+  filter:
+    brightness(0.98)
+    contrast(1.28)
+    saturate(0.85)
+    hue-rotate(-4deg)
+    drop-shadow(0 0 24px rgba(0, 212, 255, 0.65))
+    drop-shadow(0 20px 45px rgba(0, 0, 0, 0.98));
+}
+
+.fx3-cinema-stage:has(.fx3-portrait-mount:hover) .fx3-creator-cyan-halo {
+  transform: translateX(-50%) scale(1.15);
+  filter: blur(34px);
+  opacity: 1;
 }
 
 /* ==========================================================================

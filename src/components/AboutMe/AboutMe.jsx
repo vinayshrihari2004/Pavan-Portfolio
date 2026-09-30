@@ -133,16 +133,13 @@ export default function AboutMe() {
                 preload="auto"
               />
 
-              {/* Large Viewfinder Green Framing Brackets */}
+              {/* White Viewfinder Framing Brackets */}
               <div className="guide-viewfinder-brackets">
                 <span className="vf-corner top-left" />
                 <span className="vf-corner top-right" />
                 <span className="vf-corner bottom-left" />
                 <span className="vf-corner bottom-right" />
               </div>
-
-              {/* Subtle Center Reticle */}
-              <div className="center-crosshair" />
 
               {/* Unmute Button */}
               <button

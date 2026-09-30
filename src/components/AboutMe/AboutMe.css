@@ -207,7 +207,7 @@
 }
 
 /* =========================================================
-   SONY FX3 GREEN FRAMING BRACKETS (Face-Tracking Scale)
+   SONY FX3 WHITE FRAMING BRACKETS (Clean Face Framing)
    ========================================================= */
 
 .guide-viewfinder-brackets {
@@ -225,9 +225,9 @@
   position: absolute;
   width: 38px;
   height: 38px;
-  border-color: #27c93f;
+  border-color: #ffffff;
   border-style: solid;
-  filter: drop-shadow(0 0 8px rgba(39, 201, 63, 0.7));
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
 }
 
 .vf-corner.top-left {
@@ -258,38 +258,11 @@
   border-bottom-right-radius: 6px;
 }
 
-/* Center Crosshair */
-.center-crosshair {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 4;
-}
-
+/* Center Crosshair (Removed) */
+.center-crosshair,
 .center-crosshair::before,
 .center-crosshair::after {
-  content: "";
-  position: absolute;
-  background: rgba(39, 201, 63, 0.6);
-  pointer-events: none;
-}
-
-.center-crosshair::before {
-  top: 6px;
-  left: 0;
-  width: 14px;
-  height: 1.5px;
-}
-
-.center-crosshair::after {
-  top: 0;
-  left: 6px;
-  width: 1.5px;
-  height: 14px;
+  display: none !important;
 }
 
 /* =========================================================
@@ -487,7 +460,10 @@
   margin-bottom: 24px;
 }
 
-/* Telemetry Stats Grid */
+/* =========================================================
+   TELEMETRY CARDS (SONY FX3 INTERACTIVE HOVER RIG)
+   ========================================================= */
+
 .hud-stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -499,20 +475,29 @@
   position: relative;
   background: rgba(1, 7, 20, 0.8);
   border: 1px solid rgba(0, 212, 255, 0.22);
-  padding: 12px 14px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  cursor: pointer;
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background 0.25s ease;
 }
 
+/* Corner telemetry bracket */
 .telemetry-corner {
   position: absolute;
   top: 0;
   right: 0;
-  width: 6px;
-  height: 6px;
-  border-top: 2px solid #00d4ff;
-  border-right: 2px solid #00d4ff;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid rgba(0, 212, 255, 0.5);
+  border-right: 2px solid rgba(0, 212, 255, 0.5);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
 }
 
 .stat-value {
@@ -520,6 +505,7 @@
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .stat-label {
@@ -530,6 +516,7 @@
   color: #00d4ff;
   text-transform: uppercase;
   margin-top: 4px;
+  transition: color 0.2s ease;
 }
 
 .stat-sub {
@@ -537,6 +524,37 @@
   font-size: 7px;
   letter-spacing: 1px;
   color: #94a9c9;
+  transition: color 0.2s ease;
+}
+
+/* Card Hover Effects */
+.telemetry-card:hover {
+  transform: translateY(-4px);
+  background: rgba(2, 18, 48, 0.95);
+  border-color: #00d4ff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(0, 212, 255, 0.35),
+              inset 0 0 14px rgba(0, 212, 255, 0.1);
+}
+
+.telemetry-card:hover .telemetry-corner {
+  width: 12px;
+  height: 12px;
+  border-color: #00d4ff;
+  filter: drop-shadow(0 0 6px #00d4ff);
+}
+
+.telemetry-card:hover .stat-value {
+  color: #ffffff;
+  text-shadow: 0 0 18px rgba(0, 212, 255, 0.7);
+}
+
+.telemetry-card:hover .stat-label {
+  color: #ffffff;
+}
+
+.telemetry-card:hover .stat-sub {
+  color: #c9e0ff;
 }
 
 /* Production Pipeline Tags */

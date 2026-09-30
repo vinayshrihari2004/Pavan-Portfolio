@@ -23,7 +23,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-lead-text">
-            High-retention Shorts, Reels, and  motion graphics engineered
+            High-retention Shorts, Reels, and  Motion Graphics engineered
             for high-scale creators to maximize watch time and conversions.
           </p>
 
@@ -153,7 +153,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 <div className="hud-text-stack">
-                  <span className="hud-title">KINETIC MOTION</span>
+                  <span className="hud-title">MOTION GRAPHICS</span>
                   <span className="hud-sub">PREMIUM EDITS</span>
                 </div>
               </div>
