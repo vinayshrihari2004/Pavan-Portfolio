@@ -206,55 +206,59 @@
   border-radius: 1px;
 }
 
-/* Sony Eye AF Reticle */
-.sony-af-box {
-  position: absolute;
-  top: 44%;
-  left: 51%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 85px;
-  z-index: 5;
-  pointer-events: none;
-}
+/* =========================================================
+   SONY FX3 GREEN FRAMING BRACKETS (Face-Tracking Scale)
+   ========================================================= */
 
-.af-bracket {
+.guide-viewfinder-brackets {
   position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: #27c93f;
-  border-style: solid;
-}
-
-.af-bracket.top-left { top: 0; left: 0; border-width: 2px 0 0 2px; }
-.af-bracket.top-right { top: 0; right: 0; border-width: 2px 2px 0 0; }
-.af-bracket.bottom-left { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
-.af-bracket.bottom-right { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
-
-.af-tag {
-  position: absolute;
-  bottom: -15px;
+  top: 14%;
   left: 50%;
   transform: translateX(-50%);
-  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font-size: 7px;
-  font-weight: 800;
-  color: #27c93f;
-  letter-spacing: 1px;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 1px 4px;
-  white-space: nowrap;
-}
-
-/* 9:16 Center Action Safe Guides - pointer-events: none ensures clicks hit the button/video */
-.guide-9x16-box {
-  position: absolute;
-  inset: 20px 40px;
-  border: 1px dashed rgba(0, 212, 255, 0.3);
+  width: 250px;
+  height: 270px;
   z-index: 4;
   pointer-events: none;
 }
 
+.vf-corner {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-color: #27c93f;
+  border-style: solid;
+  filter: drop-shadow(0 0 8px rgba(39, 201, 63, 0.7));
+}
+
+.vf-corner.top-left {
+  top: 0;
+  left: 0;
+  border-width: 3.5px 0 0 3.5px;
+  border-top-left-radius: 6px;
+}
+
+.vf-corner.top-right {
+  top: 0;
+  right: 0;
+  border-width: 3.5px 3.5px 0 0;
+  border-top-right-radius: 6px;
+}
+
+.vf-corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 3.5px 3.5px;
+  border-bottom-left-radius: 6px;
+}
+
+.vf-corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-width: 0 3.5px 3.5px 0;
+  border-bottom-right-radius: 6px;
+}
+
+/* Center Crosshair */
 .center-crosshair {
   position: absolute;
   top: 50%;
@@ -263,13 +267,14 @@
   height: 14px;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  z-index: 4;
 }
 
 .center-crosshair::before,
 .center-crosshair::after {
   content: "";
   position: absolute;
-  background: rgba(0, 212, 255, 0.6);
+  background: rgba(39, 201, 63, 0.6);
   pointer-events: none;
 }
 
@@ -277,63 +282,68 @@
   top: 6px;
   left: 0;
   width: 14px;
-  height: 1px;
+  height: 1.5px;
 }
 
 .center-crosshair::after {
   top: 0;
   left: 6px;
-  width: 1px;
+  width: 1.5px;
   height: 14px;
 }
 
-.guide-label {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font-size: 6.5px;
-  letter-spacing: 1px;
-  color: rgba(0, 212, 255, 0.6);
-  white-space: nowrap;
-  pointer-events: none;
-}
+/* =========================================================
+   AUDIO TOGGLE BUTTON (Enlarged & High-Contrast)
+   ========================================================= */
 
-/* Audio Toggle Button - Given high z-index and explicit pointer events */
 .hud-mic-btn {
   position: absolute;
-  left: 12px;
-  bottom: 48px;
+  left: 14px;
+  bottom: 44px;
   z-index: 50;
   pointer-events: auto;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(1, 7, 20, 0.95);
-  border: 1px solid rgba(0, 212, 255, 0.45);
+  gap: 8px;
+  background: rgba(2, 13, 36, 0.94);
+  border: 1.5px solid #00d4ff;
   color: #00d4ff;
   font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font-size: 7.5px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1px;
-  padding: 5px 9px;
-  border-radius: 3px;
+  letter-spacing: 1.2px;
+  padding: 8px 14px;
+  border-radius: 5px;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
-  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 212, 255, 0.35);
+  transition: all 0.2s ease-in-out;
+}
+
+.hud-mic-btn .mic-icon {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .hud-mic-btn.live {
   border-color: #27c93f;
   color: #27c93f;
-  box-shadow: 0 0 12px rgba(39, 201, 63, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(39, 201, 63, 0.45);
 }
 
 .hud-mic-btn:hover {
-  background: rgba(0, 212, 255, 0.2);
-  color: #ffffff;
+  transform: translateY(-1px) scale(1.03);
+  background: #00d4ff;
+  color: #010714;
+  box-shadow: 0 0 22px rgba(0, 212, 255, 0.6);
+}
+
+.hud-mic-btn.live:hover {
+  background: #27c93f;
+  color: #010714;
+  box-shadow: 0 0 22px rgba(39, 201, 63, 0.65);
 }
 
 /* Bottom Parameters Strip */
@@ -585,8 +595,20 @@
     height: 420px;
   }
 
-  .guide-9x16-box {
-    inset: 15px 25px;
+  .guide-viewfinder-brackets {
+    top: 12%;
+    width: 200px;
+    height: 220px;
+  }
+
+  .vf-corner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hud-mic-btn {
+    font-size: 9px;
+    padding: 7px 11px;
   }
 }
 

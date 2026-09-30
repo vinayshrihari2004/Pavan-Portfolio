@@ -30,7 +30,7 @@ export default function AboutMe() {
     }
   }, []);
 
-  // 2. Direct native DOM listeners (Bypasses React synthetic event blocking)
+  // 2. Direct native DOM listeners for clean audio unlock
   useEffect(() => {
     const video = videoRef.current;
     const btn = buttonRef.current;
@@ -45,7 +45,6 @@ export default function AboutMe() {
         video.volume = 1.0;
         setIsMuted(false);
 
-        // Explicit promise execution in native user gesture
         video.play().catch((err) => {
           console.error("Audio playback error:", err);
         });
@@ -55,7 +54,6 @@ export default function AboutMe() {
       }
     };
 
-    // Attach native DOM listeners directly to both the button and the video
     btn.addEventListener("click", triggerAudioToggle);
     video.addEventListener("click", triggerAudioToggle);
 
@@ -135,22 +133,18 @@ export default function AboutMe() {
                 preload="auto"
               />
 
-              {/* Eye-AF Reticle */}
-              <div className="sony-af-box">
-                <span className="af-bracket top-left" />
-                <span className="af-bracket top-right" />
-                <span className="af-bracket bottom-left" />
-                <span className="af-bracket bottom-right" />
-                <span className="af-tag">AF-C [EYE] LOCK</span>
+              {/* Large Viewfinder Green Framing Brackets */}
+              <div className="guide-viewfinder-brackets">
+                <span className="vf-corner top-left" />
+                <span className="vf-corner top-right" />
+                <span className="vf-corner bottom-left" />
+                <span className="vf-corner bottom-right" />
               </div>
 
-              {/* 9:16 Guides */}
-              <div className="guide-9x16-box">
-                <div className="center-crosshair" />
-                <span className="guide-label">9:16 ACTION SAFE</span>
-              </div>
+              {/* Subtle Center Reticle */}
+              <div className="center-crosshair" />
 
-              {/* Unmute Button with Native ref binding */}
+              {/* Unmute Button */}
               <button
                 ref={buttonRef}
                 type="button"
@@ -184,7 +178,7 @@ export default function AboutMe() {
                 </div>
               </div>
 
-              {/* VU Level Meters */}
+              {/* VU Meters */}
               <div className="hud-vu-meter">
                 <span className="vu-label">CH1</span>
                 <div className="vu-track">
