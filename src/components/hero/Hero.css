@@ -10,18 +10,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 105px 5% 0 6%;
+  padding: 85px 4% 0;
   box-sizing: border-box;
   overflow: clip;
 
-  /*
-   * Complete Studio Environment rendered seamlessly on the canvas:
-   * 1. Multi-stop radial glow centered at 72% 48% (behind creator)
-   * 2. Pure smooth fade into #010817 everywhere else with zero clipped edges
-   */
   background:
     radial-gradient(
-      ellipse 950px 700px at 72% 48%,
+      ellipse 950px 700px at 65% 50%,
       #082e66 0%,
       #051c44 32%,
       #02102a 62%,
@@ -30,15 +25,16 @@
   isolation: isolate;
 }
 
+/* Tightened container width & balanced 1:1 columns to eliminate the center gap */
 .hero-grid-container {
   position: relative;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: end;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 1.5rem;
   z-index: 2;
 }
 
@@ -50,11 +46,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.35rem;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 540px;
   align-self: center;
-  padding-bottom: 55px;
+  padding-bottom: 20px;
+  z-index: 3;
 }
 
 .hero-telemetry-badge {
@@ -96,7 +93,7 @@
   align-items: flex-start;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
-  font-size: clamp(2.6rem, 3.9vw, 3.9rem);
+  font-size: clamp(2.4rem, 3.4vw, 3.5rem);
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -117,10 +114,10 @@
 }
 
 .hero-lead-text {
-  max-width: 480px;
-  font-size: 0.98rem;
+  max-width: 460px;
+  font-size: 0.95rem;
   line-height: 1.6;
-  color: rgba(200, 215, 235, 0.72);
+  color: rgba(200, 215, 235, 0.75);
   margin: 0;
 }
 
@@ -132,7 +129,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 0.4rem;
+  margin-top: 0.2rem;
 }
 
 .metric-chip {
@@ -174,15 +171,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  align-self: end;
   user-select: none;
 }
 
 .fx3-cinema-stage {
   position: relative;
   width: 100%;
-  max-width: 640px;
-  height: min(720px, 88vh);
+  max-width: 560px;
+  height: min(680px, 86vh);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -228,7 +224,7 @@
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
-  opacity: 0.78;
+  opacity: 0.85;
 
   filter:
     brightness(0.91)
@@ -238,7 +234,6 @@
     drop-shadow(0 0 16px rgba(0, 212, 255, 0.45))
     drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95));
 
-  /* Feathering that dissolves the waist/torso directly into the background */
   -webkit-mask-image: linear-gradient(
     180deg,
     #000000 0%,
@@ -260,7 +255,7 @@
 }
 
 /* ==========================================================================
-   HUD FEATURE CARDS
+   HUD FEATURE CARDS (Pull inward to frame the subject snugly)
    ========================================================================== */
 
 .fx3-orbit-hud {
@@ -277,8 +272,8 @@
   align-items: center;
   gap: 10px;
   padding: 8px 14px;
-  background: rgba(1, 15, 42, 0.88);
-  border: 1px solid rgba(0, 212, 255, 0.34);
+  background: rgba(1, 15, 42, 0.9);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   border-radius: 8px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -337,35 +332,35 @@
   line-height: 1;
 }
 
-/* Card positions framing the subject */
+/* Refined offsets: tight against the silhouette without drifting away */
 .card-viral {
-  top: 40px;
-  left: -30px;
+  top: 45px;
+  left: 15px;
 }
 
 .card-shorts {
-  top: 230px;
-  left: -60px;
+  top: 235px;
+  left: -20px;
 }
 
 .card-talking {
-  bottom: 90px;
-  left: -40px;
+  bottom: 85px;
+  left: 10px;
 }
 
 .card-podcast {
-  top: 90px;
-  right: 0;
+  top: 95px;
+  right: 15px;
 }
 
 .card-sound {
   top: 250px;
-  right: -10px;
+  right: 0px;
 }
 
 .card-kinetic {
-  bottom: 75px;
-  right: 0;
+  bottom: 70px;
+  right: 15px;
 }
 
 /* ==========================================================================

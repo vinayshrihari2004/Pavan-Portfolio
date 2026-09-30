@@ -110,7 +110,7 @@ export default function Footer() {
           <div className="footer-social-icons">
             {/* Instagram */}
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/pavanedits.video/?hl=en" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="social-icon-btn"
@@ -124,7 +124,7 @@ export default function Footer() {
 
             {/* X (Twitter) */}
             <a 
-              href="https://twitter.com" 
+              href="https://x.com/pavaneditsvideo" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="social-icon-btn"
@@ -138,7 +138,7 @@ export default function Footer() {
 
             {/* YouTube */}
             <a 
-              href="https://youtube.com" 
+              href="https://youtube.com/@pavaneditsvideo?si=UQAE0B9kdywskES8" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="social-icon-btn"
@@ -152,7 +152,7 @@ export default function Footer() {
 
             {/* Email Contact */}
             <a 
-              href="mailto:contact@pawanedits.com" 
+              href="mailto:pavaneditsvideo@gmail.com" 
               className="social-icon-btn"
               title="Send Inquiry Email"
               aria-label="Email"
