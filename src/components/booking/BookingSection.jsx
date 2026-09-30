@@ -39,7 +39,7 @@ export default function BookingSection() {
         <div className="booking-narrative-header">
           <div className="booking-status-pill">
             <span className="pulsing-indicator"></span>
-            <span>CURRENTLY ACCEPTING CREATORS</span>
+            <span>CURRENTLY ACCEPTING PROJECTS</span>
           </div>
 
           <h2 className="booking-main-title">

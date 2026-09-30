@@ -11,7 +11,7 @@ export default function Hero() {
           <div className="hero-telemetry-badge">
             <span className="telemetry-dot" />
             <span className="telemetry-label">
-              SONY FX3 // VERTICAL SHORTS &amp; REELS
+              // VERTICAL SHORTS &amp; REELS
             </span>
           </div>
 

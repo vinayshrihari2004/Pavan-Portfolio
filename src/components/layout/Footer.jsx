@@ -101,7 +101,7 @@ export default function Footer() {
           <div className="spec-card">
             <span className="spec-key">CLIENT ROSTER</span>
             <span className="spec-val">GLOBAL CREATORS</span>
-            <span className="spec-sub">ISHAN • NANDINI • SAPTARSHI</span>
+            <span className="spec-sub">GLOBAL PROJECTS</span>
           </div>
         </div>
 
