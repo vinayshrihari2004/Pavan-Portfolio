@@ -209,7 +209,7 @@ export default function Footer() {
 
           <div className="footer-copyright-block">
             <span className="copyright-code">BUILD 2026.04 // SONY FX3 HUD ENGINE</span>
-            <span className="copyright-legal">© {new Date().getFullYear()} PAWAN EDITS. ALL RIGHTS RESERVED.</span>
+            <span className="copyright-legal">© {new Date().getFullYear()} PAVAN EDITS. ALL RIGHTS RESERVED.</span>
           </div>
         </div>
       </div>

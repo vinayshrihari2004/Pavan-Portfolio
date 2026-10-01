@@ -5,7 +5,7 @@ const telemetryStats = [
   { label: "VIEWS PRODUCED", val: "45M+", sub: "ORGANIC BENCHMARK" },
   { label: "AVG HOOK RETENTION", val: "68%", sub: "FIRST 3-SEC RATE" },
   { label: "FLAGSHIP EDITS", val: "180+", sub: "DELIVERED MASTERS" },
-  { label: "TURNAROUND", val: "48h", sub: "RUSH TO FINAL 9:16" },
+  { label: "TURNAROUND", val: "36h", sub: "RUSH TO FINAL 9:16" },
 ];
 
 export default function AboutMe() {
