@@ -28,8 +28,8 @@ const testimonials = [
   },
   {
     id: 4,
-    name: "James",
-    role: "Content Creator",
+    name: "James Milo",
+    role: "Buisness Owner",
     metric: "Improved Engagement",
     deliverable: "VIDEO EDITING & PACING",
     quote:
@@ -37,8 +37,8 @@ const testimonials = [
   },
   {
     id: 5,
-    name: "Josh",
-    role: "Content Creator",
+    name: "Josh Gunn",
+    role: "Founder",
     metric: "Seamless Collaboration",
     deliverable: "CREATIVE VIDEO EDITING",
     quote:
@@ -55,8 +55,8 @@ const testimonials = [
   },
   {
     id: 7,
-    name: "Ethan",
-    role: "Content Creator",
+    name: "Ethan Sila",
+    role: "Buisness Owner",
     metric: "Smooth Workflow",
     deliverable: "VIDEO EDITING & POST-PRODUCTION",
     quote:

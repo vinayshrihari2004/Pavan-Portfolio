@@ -213,7 +213,7 @@ export default function AboutMe() {
           {/* Right Column Stats */}
           <div className="fx3-telemetry-col">
             <div className="hud-panel-header">
-              <span className="sys-status">OPERATOR ID: PAWAN_EDITS</span>
+              <span className="sys-status">OPERATOR ID: PAVAN_EDITS</span>
               <span className="sys-spec">XAVC S-I 4K // 10-BIT 4:2:2</span>
             </div>
 

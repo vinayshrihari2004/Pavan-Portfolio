@@ -3,12 +3,12 @@ import { createPortal } from "react-dom";
 import "./CreatorStyles.css";
 
 const VIDEO_ITEMS = [
-  { id: 1, title: "Reel 01", videoSrc: "/videos/Aiabdal.mp4" },
+  { id: 1, title: "Reel 01", videoSrc: "/videos/Mrbeast.mp4" },
   { id: 2, title: "Reel 02", videoSrc: "/videos/Casey.mp4" },
   { id: 3, title: "Reel 03", videoSrc: "/videos/Gadzi.mp4" },
   { id: 4, title: "Reel 04", videoSrc: "/videos/Hormozi.mp4" },
   { id: 5, title: "Reel 05", videoSrc: "/videos/Mkbhd.mp4" },
-  { id: 6, title: "Reel 06", videoSrc: "/videos/Mrbeast.mp4" },
+  { id: 6, title: "Reel 06", videoSrc: "/videos/Aiabdal.mp4" },
 ];
 
 export default function CreatorStyles() {
