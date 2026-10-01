@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pawan-portfolio-chi.vercel.app/sitemap.xml
+# Host & Sitemap specification for search engine crawlers
+Host: https://pawanedits.video
+Sitemap: https://pawanedits.video/sitemap.xml

@@ -22,12 +22,13 @@ export default function BookingSection() {
     const scriptSrc = "https://assets.calendly.com/assets/external/widget.js";
     let scriptTag = document.querySelector(`script[src="${scriptSrc}"]`);
 
-    if (!scriptTag) {
-      scriptTag = document.createElement("script");
+    if (!scriptTag){
+      scriptTag = document.createElement("script")
       scriptTag.src = scriptSrc;
       scriptTag.async = true;
       document.head.appendChild(scriptTag);
     }
+
   }, []);
 
   return (

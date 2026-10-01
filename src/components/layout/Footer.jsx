@@ -45,12 +45,14 @@ export default function Footer() {
               <div className="brand-logo-badge">
                 <img
                   src="/logo.webp"
-                  alt="Pawan Edits Logo"
+                  alt="Pawan Edits Logo" 
                   className="footer-brand-logo-img"
                   width="28"
                   height="28"
                   loading="lazy"
-                  decoding="async"
+                  decoding = "async"
+                  
+
                 />
               </div>
               <span className="logo-name">PAWAN EDITS</span>
