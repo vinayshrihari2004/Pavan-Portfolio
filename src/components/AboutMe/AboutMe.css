@@ -207,7 +207,7 @@
 }
 
 /* =========================================================
-   SONY FX3 WHITE FRAMING BRACKETS (Clean Face Framing)
+   SONY FX3 WHITE FRAMING BRACKETS (Plain Solid White, No Glow)
    ========================================================= */
 
 .guide-viewfinder-brackets {
@@ -227,38 +227,39 @@
   height: 38px;
   border-color: #ffffff;
   border-style: solid;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
+  /* Plain flat styling with zero drop-shadow/glow */
+  filter: none;
 }
 
 .vf-corner.top-left {
   top: 0;
   left: 0;
-  border-width: 3.5px 0 0 3.5px;
-  border-top-left-radius: 6px;
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 5px;
 }
 
 .vf-corner.top-right {
   top: 0;
   right: 0;
-  border-width: 3.5px 3.5px 0 0;
-  border-top-right-radius: 6px;
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 5px;
 }
 
 .vf-corner.bottom-left {
   bottom: 0;
   left: 0;
-  border-width: 0 0 3.5px 3.5px;
-  border-bottom-left-radius: 6px;
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 5px;
 }
 
 .vf-corner.bottom-right {
   bottom: 0;
   right: 0;
-  border-width: 0 3.5px 3.5px 0;
-  border-bottom-right-radius: 6px;
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 5px;
 }
 
-/* Center Crosshair (Removed) */
+/* Center Crosshair (Permanently Disabled) */
 .center-crosshair,
 .center-crosshair::before,
 .center-crosshair::after {

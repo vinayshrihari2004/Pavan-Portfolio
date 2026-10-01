@@ -34,7 +34,7 @@ export default function Testimonials() {
     setActive((curr) => (curr - 1 + total) % total);
   }, [total]);
 
-  // Pause interval when out of viewport
+  // Pause interval only when section leaves viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
@@ -118,8 +118,6 @@ export default function Testimonials() {
       ref={containerRef}
       className="testimonials-section"
       id="testimonials"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
       <div className="t-section-header">
         <span className="t-pre-tag">// VERIFIED EDITORIAL FEEDBACK</span>
@@ -129,7 +127,7 @@ export default function Testimonials() {
         <div className="t-status-row">
           <span className="t-live-pulse"></span>
           <p className="t-sub-hint">
-            {isPaused ? "AUTO-CYCLE PAUSED" : "1S HIGH-SPEED STREAMING"}
+            {isPaused ? "CARD HOVERED // STREAM PAUSED" : "1S HIGH-SPEED STREAMING"}
           </p>
         </div>
       </div>
@@ -146,7 +144,14 @@ export default function Testimonials() {
         <div className="t-stage-glow"></div>
 
         {/* LEFT GHOST CARD */}
-        <div className="t-card t-card-left" onClick={handlePrev} role="button" tabIndex={0}>
+        <div
+          className="t-card t-card-left"
+          onClick={handlePrev}
+          role="button"
+          tabIndex={0}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <div className="t-hud-top-bar">
             <span className="t-rec-text">{prevItem.deliverable || "REVIEW"}</span>
           </div>
@@ -163,6 +168,8 @@ export default function Testimonials() {
         <div
           key={active}
           className={`t-card t-card-active ${isDragging ? "dragging" : ""}`}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
           style={{
             transform: isDragging
               ? `translateX(calc(-50% + ${dragOffset}px)) scale(1)`
@@ -202,7 +209,14 @@ export default function Testimonials() {
         </div>
 
         {/* RIGHT GHOST CARD */}
-        <div className="t-card t-card-right" onClick={handleNext} role="button" tabIndex={0}>
+        <div
+          className="t-card t-card-right"
+          onClick={handleNext}
+          role="button"
+          tabIndex={0}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <div className="t-hud-top-bar">
             <span className="t-rec-text">{nextItem.deliverable || "REVIEW"}</span>
           </div>

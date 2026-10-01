@@ -16,21 +16,38 @@ export default function AboutMe() {
   const buttonRef = useRef(null);
   const sectionRef = useRef(null);
 
-  // 1. Silent autoplay initialization
+  // 1. Silent playback trigger using IntersectionObserver (non-blocking)
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const section = sectionRef.current;
+    if (!video || !section) return;
 
     video.muted = true;
     video.volume = 1.0;
 
-    const promise = video.play();
-    if (promise !== undefined) {
-      promise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video
+              .play()
+              .then(() => setIsPlaying(true))
+              .catch(() => setIsPlaying(false));
+          } else {
+            video.pause();
+            setIsPlaying(false);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
   }, []);
 
-  // 2. Direct native DOM listeners for clean audio unlock
+  // 2. Audio toggle: unmuting restarts playback from beginning (00:00)
   useEffect(() => {
     const video = videoRef.current;
     const btn = buttonRef.current;
@@ -41,9 +58,11 @@ export default function AboutMe() {
       event.stopImmediatePropagation();
 
       if (video.muted || video.volume === 0) {
+        video.currentTime = 0;
         video.muted = false;
         video.volume = 1.0;
         setIsMuted(false);
+        setIsPlaying(true);
 
         video.play().catch((err) => {
           console.error("Audio playback error:", err);
@@ -129,11 +148,12 @@ export default function AboutMe() {
                 className="hud-editor-video"
                 src="/pawan-note.mp4"
                 loop
+                muted
                 playsInline
-                preload="auto"
+                preload="metadata"
               />
 
-              {/* White Viewfinder Framing Brackets */}
+              {/* Plain White Viewfinder Framing Brackets (No Glow) */}
               <div className="guide-viewfinder-brackets">
                 <span className="vf-corner top-left" />
                 <span className="vf-corner top-right" />
@@ -203,7 +223,7 @@ export default function AboutMe() {
                 <span>I ENGINEER RETENTION.</span>
               </h2>
               <p className="operator-lead">
-                Specialized in high-velocity Reels, Shorts, and creator podcasts. In a feed where viewers swipe in 0.8 seconds, I treat pacing like an instrument—syncing audio foley, kinetic text, and seamless J-cuts to keep audiences glued past the 3-second drop-off curve.
+                I'm Pavan, a video editor specializing in high-retention YouTube shorts, Instagram Reels, short-form content, and visual storytelling. I combine creative editing, motion graphics, and sound design to turn raw footage into polished videos that capture attention and keep audiences engaged.
               </p>
             </div>
 
