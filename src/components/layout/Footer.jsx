@@ -53,7 +53,7 @@ export default function Footer() {
                   decoding="async"
                 />
               </div>
-              <span className="logo-name">PAWAN EDITS</span>
+              <span className="logo-name">PAVAN EDITS</span>
             </div>
             <p className="brand-tagline">
               Engineering high-retention vertical cinema, kinetic motion typography,

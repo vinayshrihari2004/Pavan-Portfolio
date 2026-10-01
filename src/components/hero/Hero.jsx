@@ -23,7 +23,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-lead-text">
-            High-retention Shorts, Reels, and  Motion Graphics engineered
+            High-retention Shorts, Reels, and Motion Graphics engineered
             for high-scale creators to maximize watch time and conversions.
           </p>
 
@@ -52,10 +52,10 @@ export default function Hero() {
         {/* RIGHT COLUMN: SONY FX3 CINEMATIC CREATOR STAGE */}
         <div className="hero-visual-col">
           <div className="fx3-cinema-stage">
-            {/* Soft cyan rim glow behind head only */}
+            {/* Ambient Cyan Rim Backlight */}
             <div className="fx3-creator-cyan-halo" aria-hidden="true" />
 
-            {/* Portrait Mount */}
+            {/* Isolated Portrait Mount */}
             <div className="fx3-portrait-mount">
               <img
                 src="/pawan.webp"
@@ -69,7 +69,7 @@ export default function Hero() {
               />
             </div>
 
-            {/* Clean Orbit HUD Badges */}
+            {/* Orbit HUD Badges (Completely decoupled from portrait hover) */}
             <div className="fx3-orbit-hud">
               {/* Left Flank */}
               <div className="fx3-hud-card card-viral">
