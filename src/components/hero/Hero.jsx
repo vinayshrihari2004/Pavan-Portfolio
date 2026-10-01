@@ -55,7 +55,7 @@ export default function Hero() {
             {/* Ambient Cyan Rim Backlight */}
             <div className="fx3-creator-cyan-halo" aria-hidden="true" />
 
-            {/* Isolated Portrait Mount */}
+            {/* Creator Portrait Mount */}
             <div className="fx3-portrait-mount">
               <img
                 src="/pawan.webp"
@@ -67,9 +67,12 @@ export default function Hero() {
                 decoding="async"
                 loading="eager"
               />
+
+              {/* Dedicated Chest Hit-Target Trigger Box */}
+              <div className="fx3-chest-target" aria-hidden="true" />
             </div>
 
-            {/* Orbit HUD Badges (Completely decoupled from portrait hover) */}
+            {/* Orbit HUD Badges (Completely isolated) */}
             <div className="fx3-orbit-hud">
               {/* Left Flank */}
               <div className="fx3-hud-card card-viral">

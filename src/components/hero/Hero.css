@@ -160,7 +160,7 @@
 }
 
 /* ==========================================================================
-   RIGHT COLUMN: INDEPENDENT CREATOR PORTRAIT & HUD CARDS
+   RIGHT COLUMN: CALIBRATED CHEST-TARGET HOVER STAGE
    ========================================================================== */
 
 .hero-visual-col {
@@ -182,7 +182,7 @@
   justify-content: center;
 }
 
-/* Backlight Aura (Only responds to portrait hover) */
+/* Ambient Backlight Aura */
 .fx3-creator-cyan-halo {
   position: absolute;
   top: 80px;
@@ -204,7 +204,7 @@
   transition: opacity 0.35s ease, filter 0.35s ease;
 }
 
-/* Portrait Mount: Isolated pointer target for photo only */
+/* Mount wrapper */
 .fx3-portrait-mount {
   position: relative;
   z-index: 2;
@@ -213,11 +213,12 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  cursor: pointer;
+  pointer-events: none; /* Let empty stage areas click through */
 }
 
-/* Portrait Base State */
+/* Portrait Base: pointer-events are NONE so head, arms, waist do NOT hover */
 .fx3-portrait-core {
+  pointer-events: none;
   position: relative;
   display: block;
   width: auto;
@@ -257,8 +258,25 @@
   transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
 }
 
-/* --- ISOLATED PORTRAIT HOVER (Increases to 0.90 opacity) --- */
-.fx3-portrait-mount:hover .fx3-portrait-core {
+/* ==========================================================================
+   CHEST HIT-TARGET (ONLY AREA THAT ENABLES PORTRAIT HOVER)
+   ========================================================================== */
+.fx3-chest-target {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 155px;
+  height: 155px;
+  border-radius: 50%;
+  pointer-events: auto; /* Active hit zone */
+  cursor: pointer;
+  z-index: 5;
+  background: transparent;
+}
+
+/* Triggered strictly when hovering over the chest target */
+.fx3-portrait-mount:has(.fx3-chest-target:hover) .fx3-portrait-core {
   opacity: 0.90;
   transform: translate3d(0, -3px, 0);
   filter:
@@ -269,13 +287,13 @@
     drop-shadow(0 18px 40px rgba(0, 0, 0, 0.95));
 }
 
-.fx3-cinema-stage:has(.fx3-portrait-mount:hover) .fx3-creator-cyan-halo {
+.fx3-cinema-stage:has(.fx3-chest-target:hover) .fx3-creator-cyan-halo {
   opacity: 0.95;
   filter: blur(36px);
 }
 
 /* ==========================================================================
-   HUD FEATURE CARDS: COMPLETELY INDEPENDENT POINTER DOCK
+   HUD FEATURE CARDS: INDEPENDENT HOVER (NEVER AFFECTS PORTRAIT)
    ========================================================================== */
 
 .fx3-orbit-hud {
@@ -427,6 +445,12 @@
     max-height: 100%;
   }
 
+  .fx3-chest-target {
+    top: 42%;
+    width: 135px;
+    height: 135px;
+  }
+
   .card-viral   { top: 35px; left: 0; }
   .card-shorts  { top: 175px; left: -10px; }
   .card-talking { bottom: 35px; left: 0; }
@@ -477,6 +501,12 @@
 
   .fx3-portrait-core {
     max-height: 100%;
+  }
+
+  .fx3-chest-target {
+    top: 44%;
+    width: 110px;
+    height: 110px;
   }
 
   .fx3-hud-card {
