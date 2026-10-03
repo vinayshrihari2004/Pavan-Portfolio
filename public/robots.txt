@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 
-# Host & Sitemap specification for search engine crawlers
-Host: https://pawanedits.video
-Sitemap: https://pawanedits.video/sitemap.xml
+Sitemap: https://pavanedits.video/sitemap.xml
